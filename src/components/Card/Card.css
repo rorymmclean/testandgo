@@ -1,0 +1,25 @@
+.cardContainer {
+  display: flex;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.cardLeft {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cardLeft img {
+  width: 150px;
+}
+.cardRight {
+  font-size: 1rem;
+}
+.cardListItem {
+  display: flex;
+  justify-content: space-between;
+}
+.cardRight {
+  display: flex;
+  flex-wrap: wrap;
+}

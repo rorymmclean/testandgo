@@ -1,0 +1,9 @@
+.regiserLink-1:hover {
+  text-decoration: underline !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .footerSpan {
+    font-size: 10px !important;
+  }
+}

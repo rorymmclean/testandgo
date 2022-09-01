@@ -1,0 +1,22 @@
+.registration-h4-page1 {
+  color: gray;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 40px;
+  width: 250px;
+  font-size: 1.5rem;
+}
+.registration-row-page1 {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.registration-a-page1 {
+  margin-top: 20px;
+  font-size: 80%;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  color: red;
+}

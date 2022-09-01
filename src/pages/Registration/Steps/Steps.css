@@ -1,0 +1,58 @@
+.steps-custom-h4-1 {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  width: 250px;
+  font-size: 1.5rem;
+}
+.label {
+  color: red;
+  font-weight: bold;
+}
+
+.step1-link {
+  color: red;
+  text-decoration: none;
+  background-color: transparent;
+  font-size: 80%;
+  font-weight: 400;
+}
+.step1-link:hover {
+  color: red;
+  text-decoration: underline;
+}
+.step1-p {
+  color: Gray;
+  font-size: 80%;
+  font-weight: 400;
+}
+.patiaentInformation-h4 {
+  color: red;
+  font-weight: bold;
+  width: 350px;
+  font-size: 1.5rem;
+  display: flex;
+}
+.optionalLabel {
+  color: red;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+}
+.optionalSpan {
+  font-size: 12px;
+  color: #000;
+}
+.HealthInsurance-h4 {
+  color: red;
+  font-weight: bold;
+  font-size: 1.5rem;
+  display: flex;
+  text-align: center;
+  width: 80%;
+  justify-content: center;
+}
+.custom-p {
+  margin-top: 0px;
+  font-weight: bold;
+}
