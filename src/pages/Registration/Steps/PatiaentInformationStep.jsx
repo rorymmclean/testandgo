@@ -13,7 +13,6 @@ import 'react-phone-number-input/style.css';
 
 const PatiaentInformationStep1 = () => {
   const [startDate, setStartDate] = useState('');
-
   const [formData, setFormDate] = useState({
     firstName: 'test',
     lastName: 'test',

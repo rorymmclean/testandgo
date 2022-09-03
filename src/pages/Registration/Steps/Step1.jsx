@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import 'react-phone-number-input/style.css';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
@@ -8,13 +8,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import Stepper from '../../../components/common/Stepper';
 import './Steps.css';
 import axios from 'axios';
+import UserContext from '../../../Context/UserContext';
 
 const Step1 = () => {
+  const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
+  const { setContextData } = useContext(UserContext);
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [validEmail, setValidEmail] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
+  const [phoneControl, setPhoneControl] = useState('');
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [emailControl, setEmailControl] = useState('');
   const navigate = useNavigate();
+  axios.defaults.headers = {
+    'x-api-key': REACT_APP_API_KEY,
+  };
   const handlePhoneSubmit = (event) => {
     event.preventDefault();
     if (
@@ -23,32 +31,64 @@ const Step1 = () => {
       phoneNumber == ''
     ) {
       setPhoneError(true);
+      setPhoneControl('You must enter a valid Phone');
     } else {
       setPhoneError(false);
-      //handleing request
       axios
         .post(
-          `https://ovwxgt25b8.execute-api.us-west-2.amazonaws.com/dev/registration?identityType=Phone&identityValue=${phoneNumber}`,
-          {
-            headers: {
-              'x-api-key': 'pCe43DkKlV8PTAaBJsqdx63Qo2Hk7SJf7JM6LJFI',
-            },
-          }
+          `${REACT_APP_API}/registration?identityType=Phone&identityValue=${phoneNumber}`
         )
         .then((res) => {
-          console.log(res);
-          console.log(res.data);
+          if (res.data.statuscode == '200') {
+            setContextData((prevState) => {
+              return {
+                ...prevState,
+                patient: res.data.body.patient,
+                patientCode: res.data.body.code,
+              };
+            });
+            navigate('/registration/step1/verification');
+          } else if (res.data.statuscode == '400') {
+            setPhoneError(true);
+            setPhoneControl(
+              'This mobile number is registered, please enter another number!'
+            );
+          }
+        })
+        .catch((error) => {
+          console.log(error);
         });
     }
   };
   const handleEmailSubmit = (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    setValidEmail(true);
+    axios
+      .post(
+        `${REACT_APP_API}/registration?identityType=Email&identityValue=${email}`
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.data.statuscode == '200') {
+          setEmailError(false);
+
+          setContextData((prevState) => {
+            return {
+              ...prevState,
+              patient: res.data.body.patient,
+              patientCode: res.data.body.code,
+            };
+          });
+          navigate('/registration/step1/verification');
+        } else if (res.data.statuscode == '400') {
+          setEmailError(true);
+          setEmailControl(
+            'This mobile number is registered, please enter another number!'
+          );
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <Container>
@@ -94,7 +134,7 @@ const Step1 = () => {
                     color: '#dc3545',
                   }}
                 >
-                  You must enter a valid Phone
+                  {phoneControl}
                 </p>
               )}
               <Button
@@ -115,11 +155,7 @@ const Step1 = () => {
                 SMS Privacy policy
               </Link>
             </p>
-            <Form
-              noValidate
-              validated={validEmail}
-              onSubmit={handleEmailSubmit}
-            >
+            <Form onSubmit={handleEmailSubmit}>
               <Form.Label className="label">Email Address</Form.Label>
               <Form.Control
                 required
@@ -129,9 +165,17 @@ const Step1 = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <Form.Control.Feedback type="invalid">
-                You must enter a valid email
-              </Form.Control.Feedback>
+              {emailError && (
+                <p
+                  style={{
+                    marginTop: ' 0.25rem',
+                    fontSize: '.875em',
+                    color: '#dc3545',
+                  }}
+                >
+                  {emailControl}
+                </p>
+              )}
               <Button
                 type="submit"
                 className="CommonButton mb-3"
