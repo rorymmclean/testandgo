@@ -67,7 +67,6 @@ const Step1 = () => {
         `${REACT_APP_API}/registration?identityType=Email&identityValue=${email}`
       )
       .then((res) => {
-        console.log(res);
         if (res.data.statuscode == '200') {
           setEmailError(false);
 
