@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../../../components/common/Footer';
@@ -8,6 +8,22 @@ import './Steps.css';
 
 const Step1Verification = () => {
   const navigate = useNavigate();
+  const [validatedForm, setValidatedForm] = useState(false);
+  const [verificationCode, setVerificationCode] = useState('');
+  const [error, setError] = useState('');
+  const handleVerificationSubmit = (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    //validating input
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+      if (verificationCode === '') {
+        setError('This Field is Required');
+      }
+    }
+    setValidatedForm(true);
+  };
   return (
     <Container>
       <Row className="justify-content-center mt-5">
@@ -23,14 +39,26 @@ const Step1Verification = () => {
               Click Next to Move to the Patient Information Step.
             </p>
 
-            <Form>
+            <Form
+              noValidate
+              validated={validatedForm}
+              onSubmit={handleVerificationSubmit}
+            >
               <Form.Label className="label">Enter Verification Code</Form.Label>
               <Form.Control
+                autoFocus
+                required
                 className="hieght-50px"
                 type="text"
                 placeholder="1234567"
+                onChange={(e) => setVerificationCode(e.target.value)}
+                value={verificationCode}
               />
+              <Form.Control.Feedback type="invalid">
+                {error}
+              </Form.Control.Feedback>
               <Button
+                type="submit"
                 className="CommonButton"
                 variant="secondary"
                 onClick={() => navigate('/PatiaentInformationStep')}

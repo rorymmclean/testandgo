@@ -10,9 +10,6 @@ import './Steps.css';
 import axios from 'axios';
 
 const Step1 = () => {
-  axios.defaults.headers = {
-    'x-api-key': 'pCe43DkKlV8PTAaBJsqdx63Qo2Hk7SJf7JM6LJFI',
-  };
   const [phoneNumber, setPhoneNumber] = useState('');
   const [validEmail, setValidEmail] = useState(false);
   const [phoneError, setPhoneError] = useState(false);
@@ -31,7 +28,12 @@ const Step1 = () => {
       //handleing request
       axios
         .post(
-          `https://ovwxgt25b8.execute-api.us-west-2.amazonaws.com/dev/registration?identityType=Phone&identityValue=${phoneNumber}`
+          `https://ovwxgt25b8.execute-api.us-west-2.amazonaws.com/dev/registration?identityType=Phone&identityValue=${phoneNumber}`,
+          {
+            headers: {
+              'x-api-key': 'pCe43DkKlV8PTAaBJsqdx63Qo2Hk7SJf7JM6LJFI',
+            },
+          }
         )
         .then((res) => {
           console.log(res);

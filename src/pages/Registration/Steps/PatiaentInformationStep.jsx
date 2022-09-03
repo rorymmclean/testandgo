@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import PhoneInput from 'react-phone-number-input';
 import { useNavigate } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import Footer from '../../../components/common/Footer';
 import Stepper from '../../../components/common/Stepper';
 import './../../Common.css';
@@ -10,6 +12,22 @@ import './Steps.css';
 import 'react-phone-number-input/style.css';
 
 const PatiaentInformationStep1 = () => {
+  const [startDate, setStartDate] = useState('');
+
+  const [formData, setFormDate] = useState({
+    firstName: 'test',
+    lastName: 'test',
+    dob: 'test',
+    Phone: 'test',
+    Email: 'test',
+    password: 'test',
+    repeatedPassword: 'test',
+    addressType: 'test',
+    address: 'test',
+    secondAddress: 'test',
+    apt: 'test',
+    zip: 'test',
+  });
   let months = [
     'January',
     'February',
@@ -61,42 +79,25 @@ const PatiaentInformationStep1 = () => {
             <Form>
               <Form.Label className="label">First Name</Form.Label>
               <Form.Control
+                autoFocus
                 className="hieght-50px"
                 type="text"
                 placeholder="Enter First Name"
+                value={formData.firstName}
               />
               <Form.Label className="mt-3 label">Last Name</Form.Label>
               <Form.Control
                 className="hieght-50px"
                 type="text"
                 placeholder="Enter Last Name"
+                value={formData.lastName}
               />
-              <Row className="mt-3">
-                <Col>
-                  <Form.Label className="label">Birth Month</Form.Label>
-                  <select className="dropDwon" name="month" id="Month">
-                    {months.map((month, index) => {
-                      return (
-                        <option value={month} id={index + 1} key={index}>
-                          {month}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </Col>
-                <Col>
-                  <Form.Label className="label">Birth Day</Form.Label>
-                  <select className="dropDwon" name="day" id="day">
-                    <option value="1">1</option>
-                  </select>
-                </Col>
-                <Col>
-                  <Form.Label className="label">Birth Year</Form.Label>
-                  <select className="dropDwon" name="year" id="year">
-                    <option value="volvo">2022</option>
-                    <option value="saab">2012</option>
-                  </select>
-                </Col>
+              <Form.Label className="label mt-3">Birth Month</Form.Label>
+              <Row className="mt-3 d-flex flex-column  ">
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                />
               </Row>
               <Form.Label className=" mt-3 label">Phone</Form.Label>
               <PhoneInput
