@@ -43,8 +43,11 @@ const Step1 = () => {
             setContextData((prevState) => {
               return {
                 ...prevState,
-                patient: res.data.body.patient,
-                patientCode: res.data.body.code,
+                registrationInfo: {
+                  setp: 1,
+                  patient: res.data.body.patient,
+                  patientCode: res.data.body.code,
+                },
               };
             });
             navigate('/registration/step1/verification');
