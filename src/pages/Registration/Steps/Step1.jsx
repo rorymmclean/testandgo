@@ -40,11 +40,15 @@ const Step1 = () => {
         )
         .then((res) => {
           if (res.data.statuscode == '200') {
+            localStorage.setItem('Registered_user', res.data.body.patient);
+            localStorage.setItem('Registered_user_code', res.data.body.code);
+
+            localStorage.setItem('r_step', 2);
             setContextData((prevState) => {
               return {
                 ...prevState,
                 registrationInfo: {
-                  setp: 1,
+                  setp: 2,
                   patient: res.data.body.patient,
                   patientCode: res.data.body.code,
                 },

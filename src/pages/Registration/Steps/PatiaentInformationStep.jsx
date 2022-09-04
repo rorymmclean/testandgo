@@ -11,16 +11,36 @@ import './Steps.css';
 import 'react-phone-number-input/style.css';
 import axios from 'axios';
 import UserContext from '../../../Context/UserContext';
+import stepsObject from './stepsObject';
 
 const PatiaentInformationStep1 = () => {
   const location = useLocation();
   const navigate = useNavigate();
   useEffect(() => {
+    //check were is the real step that user should be in!
+    if (localStorage.getItem('r_step') === null) {
+      navigate('/');
+    } else if (localStorage.getItem('r_step') != 3) {
+      navigate(stepsObject[localStorage.getItem('r_step')]);
+    }
+
+    //udapte or register mode
     if (
-      location.pathname === '/PatiaentInformationStep' &&
-      contextData.registrationInfo == undefined
+      location.pathname !== '/PatiaentInformationStep' ||
+      localStorage.getItem('Registered_user') === null
     ) {
       navigate('/');
+    } else {
+      setContextData((prevState) => {
+        return {
+          ...prevState,
+          registrationInfo: {
+            setp: 2,
+            patient: localStorage.getItem('Registered_user'),
+            patientCode: localStorage.getItem('Registered_user_code'),
+          },
+        };
+      });
     }
   }, []);
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -88,9 +108,6 @@ const PatiaentInformationStep1 = () => {
         phoneError === false &&
         passwordsNotEqaul === false
       ) {
-        console.log('جاهز');
-        console.log(contextData.registrationInfo.patient);
-
         //sending data
         axios
           .put(
@@ -111,16 +128,17 @@ const PatiaentInformationStep1 = () => {
           .then((res) => {
             console.log(res);
             if (res.data.statuscode == '200') {
+              localStorage.setItem('r_step', 4);
               setContextData((prevState) => {
                 return {
                   ...prevState,
                   registrationInfo: {
                     ...prevState.registrationInfo,
-                    setp: 2,
+                    setp: 4,
                   },
                 };
               });
-              navigate('/registration/step1/verification');
+              navigate('/health-insurance');
             } else if (res.data.statuscode == '400') {
             }
           })

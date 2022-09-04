@@ -1,0 +1,20 @@
+const stepsObject = {
+  '1': '/registration/step1',
+  '2': '/registration/step1/verification',
+  '3': '/PatiaentInformationStep',
+  '4': '/health-insurance',
+  '5': '/insurance-information',
+  '6': '/secondary-insurance-information',
+  '7': '/verification-directions',
+  '8': '/driver-license-front',
+  '9': '/driver-license-Back',
+  '10': '/insurance-card-front',
+  '11': '/insurance-card-back',
+  '12': '/UsCareAct',
+  '13': '/test-dependent',
+  '14': '/covid-exposure',
+  '15': '/covid-symptoms',
+  '16': '/covid-test-request',
+  '17': '/QR-Code',
+};
+export default stepsObject;
