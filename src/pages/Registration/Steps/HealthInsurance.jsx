@@ -154,7 +154,6 @@ const HealthInsurance = () => {
                 style={{
                   marginBottom: '150px',
                 }}
-                /*  onClick={() => navigate('/insurance-information')} */
                 type="submit"
               >
                 Next
