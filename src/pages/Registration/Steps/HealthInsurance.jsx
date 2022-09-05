@@ -76,22 +76,20 @@ const HealthInsurance = () => {
             navigate(0);
           } else {
             //if thier is Health Insurance
-            localStorage.setItem('r_step', 7);
+            localStorage.setItem('r_step', 12);
             setContextData((prevState) => {
               return {
                 ...prevState,
                 registrationInfo: {
                   ...prevState.registrationInfo,
-                  setp: 7,
+                  setp: 12,
                 },
               };
             });
             localStorage.setItem('healthi_nsurance', 'no');
-            navigate('/verification-directions');
+            navigate('/UsCareAct');
             navigate(0);
           }
-
-          navigate('/health-insurance');
         } else if (
           res.data.statuscode == '400' ||
           res.data.statuscode == '401'
