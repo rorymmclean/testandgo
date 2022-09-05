@@ -97,7 +97,6 @@ const UsCareAct = () => {
       }
     } else {
       // ready to send to api
-
       axios
         .put(
           `${REACT_APP_API}/patient?patient=${contextData.registrationInfo.patient}`,
@@ -113,17 +112,20 @@ const UsCareAct = () => {
           console.log(res);
           if (res.data.statuscode == '200') {
             //if thier is Health Insurance
-            localStorage.setItem('r_step', 13);
+            localStorage.removeItem('r_step');
+
+            localStorage.removeItem('Registered_user');
+
             setContextData((prevState) => {
               return {
                 ...prevState,
                 registrationInfo: {
                   ...prevState.registrationInfo,
-                  setp: 13,
+                  setp: 0,
                 },
               };
             });
-            navigate('/test-dependent');
+            navigate('/login');
           } else if (
             res.data.statuscode == '400' ||
             res.data.statuscode == '401'
@@ -286,7 +288,6 @@ const UsCareAct = () => {
                 className="CommonButton mt-4"
                 variant="secondary"
                 type="submit"
-                /* onClick={() => navigate('/test-dependent')} */
               >
                 Next
               </Button>

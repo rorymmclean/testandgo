@@ -1,13 +1,24 @@
+import axios from 'axios';
 import React from 'react';
+import { useState } from 'react';
+import { useContext } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../../../components/common/Footer';
 import Stepper from '../../../components/common/Stepper';
+import UserContext from '../../../Context/UserContext';
 import './../../Common.css';
 import './Steps.css';
 
 const TestDependent = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { contextData, setContextData } = useContext(UserContext);
+  const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
+  axios.defaults.headers = {
+    'x-api-key': REACT_APP_API_KEY,
+  };
+  const [formData, setFormData] = useState('Myself');
 
   return (
     <Container>
@@ -58,6 +69,7 @@ const TestDependent = () => {
                   id={`radio-1`}
                   isInvalid
                   defaultChecked
+                  onChange={() => setFormData('Myself')}
                 />
                 <Form.Check
                   label="Dependent Under the age of 18"
@@ -65,6 +77,7 @@ const TestDependent = () => {
                   type="radio"
                   id={`radio-2`}
                   isInvalid
+                  onChange={() => setFormData('Dependent Under the age of 18')}
                 />
                 <Form.Check
                   label="Dependent Over the age of 18"
@@ -72,14 +85,14 @@ const TestDependent = () => {
                   type="radio"
                   id={`radio-2`}
                   isInvalid
+                  onChange={() => setFormData('Dependent Over the age of 18')}
                 />
               </Form.Group>
 
               <Button
                 className="CommonButton mt-4"
                 variant="secondary"
-                style={{}}
-                onClick={() => navigate('/covid-exposure')}
+                type="submit"
               >
                 Submit
               </Button>

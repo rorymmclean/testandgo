@@ -11,10 +11,10 @@ const stepsObject = {
   '10': '/insurance-card-front',
   '11': '/insurance-card-back',
   '12': '/UsCareAct',
-  '13': '/test-dependent',
+  /*   '13': '/test-dependent',
   '14': '/covid-exposure',
   '15': '/covid-symptoms',
   '16': '/covid-test-request',
-  '17': '/QR-Code',
+  '17': '/QR-Code', */
 };
 export default stepsObject;
