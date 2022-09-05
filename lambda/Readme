@@ -1,1 +1,1 @@
-Lambda functions are all named lambda_function.py. They are renamed here for identification until we work out the best way to automate deployments. 
+Lambda functions are all named lambda_function.py. The folder directory distinguishes which file goes with which function.
