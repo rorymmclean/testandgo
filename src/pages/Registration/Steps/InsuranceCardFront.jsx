@@ -33,7 +33,10 @@ const InsuranceCardFront = () => {
               <Button
                 className="CommonButton mt-4 mb-3"
                 variant="secondary"
-                onClick={() => navigate('/insurance-card-back')}
+                onClick={() => {
+                  localStorage.setItem('r_step', 11);
+                  navigate('/insurance-card-back');
+                }}
               >
                 Submit
               </Button>

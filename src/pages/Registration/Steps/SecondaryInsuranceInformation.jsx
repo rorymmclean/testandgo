@@ -92,7 +92,7 @@ const SecondaryInsuranceInformation = () => {
           console.log(res);
           if (res.data.statuscode == '200') {
             //if thier is Health Insurance
-            //localStorage.setItem('r_step', 7);
+            localStorage.setItem('r_step', 7);
             setContextData((prevState) => {
               return {
                 ...prevState,
@@ -103,7 +103,6 @@ const SecondaryInsuranceInformation = () => {
               };
             });
             navigate('/verification-directions');
-            //navigate(0);
           } else if (
             res.data.statuscode == '400' ||
             res.data.statuscode == '401'

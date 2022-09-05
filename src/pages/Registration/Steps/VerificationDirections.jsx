@@ -41,7 +41,10 @@ const VerificationDirections = () => {
               <Button
                 className="CommonButton mt-4 mb-3"
                 variant="secondary"
-                onClick={() => navigate('/driver-license-front')}
+                onClick={() => {
+                  localStorage.setItem('r_step', 8);
+                  navigate('/driver-license-front');
+                }}
               >
                 Submit
               </Button>

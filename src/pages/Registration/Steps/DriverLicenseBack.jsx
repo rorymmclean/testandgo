@@ -32,7 +32,10 @@ const DriverLicenseBack = () => {
               <Button
                 className="CommonButton mt-4 mb-3"
                 variant="secondary"
-                onClick={() => navigate('/insurance-card-front')}
+                onClick={() => {
+                  localStorage.setItem('r_step', 10);
+                  navigate('/insurance-card-front');
+                }}
               >
                 Submit
               </Button>
