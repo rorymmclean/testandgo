@@ -16,33 +16,6 @@ import stepsObject from './stepsObject';
 const PatiaentInformationStep1 = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  useEffect(() => {
-    //check were is the real step that user should be in!
-    if (localStorage.getItem('r_step') === null) {
-      navigate('/');
-    } else if (localStorage.getItem('r_step') != 3) {
-      navigate(stepsObject[localStorage.getItem('r_step')]);
-    }
-
-    //udapte or register mode
-    if (
-      location.pathname !== '/PatiaentInformationStep' ||
-      localStorage.getItem('Registered_user') === null
-    ) {
-      navigate('/');
-    } else {
-      setContextData((prevState) => {
-        return {
-          ...prevState,
-          registrationInfo: {
-            setp: 2,
-            patient: localStorage.getItem('Registered_user'),
-            patientCode: localStorage.getItem('Registered_user_code'),
-          },
-        };
-      });
-    }
-  }, []);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneError, setPhoneError] = useState(false);
   const [phoneControl, setPhoneControl] = useState('');
@@ -63,16 +36,45 @@ const PatiaentInformationStep1 = () => {
     zip: '',
   });
   const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
+
   axios.defaults.headers = {
     'x-api-key': REACT_APP_API_KEY,
   };
 
+  useEffect(() => {
+    //check were is the real step that user should be in!
+    if (localStorage.getItem('r_step') === null) {
+      navigate('/');
+    } else if (localStorage.getItem('r_step') != 3) {
+      navigate(stepsObject[localStorage.getItem('r_step')]);
+    }
+
+    //udapte or register mode
+    if (
+      location.pathname !== '/PatiaentInformationStep' ||
+      localStorage.getItem('Registered_user') === null
+    ) {
+      navigate('/');
+    } else {
+      setContextData((prevState) => {
+        return {
+          ...prevState,
+          registrationInfo: {
+            setp: 3,
+            patient: localStorage.getItem('Registered_user'),
+            patientCode: localStorage.getItem('Registered_user_code'),
+          },
+        };
+      });
+    }
+  }, []);
+
   const handleSubmit = (event) => {
+    event.preventDefault();
     setValidatedForm(false);
     setPasswordsNotEqaul(false);
     setPhoneError(false);
 
-    event.preventDefault();
     if (
       phoneNumber === undefined ||
       isValidPhoneNumber(phoneNumber) === false ||
@@ -139,7 +141,12 @@ const PatiaentInformationStep1 = () => {
                 };
               });
               navigate('/health-insurance');
-            } else if (res.data.statuscode == '400') {
+            } else if (
+              res.data.statuscode == '400' ||
+              res.data.statuscode == '401'
+            ) {
+              localStorage.setItem('r_step', 1);
+              navigate('/registration/step1');
             }
           })
           .catch((error) => {
@@ -453,7 +460,6 @@ const PatiaentInformationStep1 = () => {
               <Button
                 className="CommonButton mt-3"
                 variant="secondary"
-                /* onClick={() => navigate('/health-insurance')} */
                 type="submit"
               >
                 Next
