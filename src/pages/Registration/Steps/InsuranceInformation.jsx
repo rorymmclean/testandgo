@@ -18,7 +18,7 @@ const InsuranceInformation = () => {
   const [formData, setFormData] = useState({
     primary_insurance_carrier: '',
     subscriber_member_id: '',
-    group_nunmer: '',
+    group_number: '',
     is_primary_insurance_holder: 'No',
     have_secondary_insurance_want_to_include: 'No',
   });
@@ -72,15 +72,17 @@ const InsuranceInformation = () => {
         .put(
           `${REACT_APP_API}/patient?patient=${contextData.registrationInfo.patient}`,
           {
-            primary_insurance_carrier: formData.primary_insurance_carrier,
-            subscriber_member_id: formData.subscriber_member_id,
-            is_primary_insurance_holder: formData.is_primary_insurance_holder,
-            have_secondary_insurance_want_to_include:
-              formData.have_secondary_insurance_want_to_include,
+            insurance_nformation: {
+              primary_insurance_carrier: formData.primary_insurance_carrier,
+              subscriber_member_id: formData.subscriber_member_id,
+              is_primary_insurance_holder: formData.is_primary_insurance_holder,
+              group_number: formData.group_number,
+              have_secondary_insurance_want_to_include:
+                formData.have_secondary_insurance_want_to_include,
+            },
           }
         )
         .then((res) => {
-          console.log(res);
           if (res.data.statuscode == '200') {
             if (formData.have_secondary_insurance_want_to_include === 'Yes') {
               //if thier is Health Insurance
@@ -152,6 +154,7 @@ const InsuranceInformation = () => {
                 Primary Insurance Carrier
               </Form.Label>
               <Form.Control
+                autoFocus
                 required
                 className="hieght-50px"
                 value={formData.primary_insurance_carrier}
@@ -167,7 +170,7 @@ const InsuranceInformation = () => {
                 }
               />
               <Form.Control.Feedback type="invalid">
-                Primary Insurance Carrier
+                Please provide Primary Insurance Carrier
               </Form.Control.Feedback>
               <Form.Label className=" mt-3 label">
                 Subscriber / Member ID
@@ -190,25 +193,25 @@ const InsuranceInformation = () => {
               <Form.Control.Feedback type="invalid">
                 Please provide a Subscriber / Member ID.
               </Form.Control.Feedback>
-              <Form.Label className=" mt-3 label">Group Nunmer</Form.Label>
+              <Form.Label className=" mt-3 label">Group number</Form.Label>
 
               <Form.Control
                 required
                 className="hieght-50px"
-                value={formData.group_nunmer}
+                value={formData.group_number}
                 type="text"
                 placeholder=""
                 onChange={(e) =>
                   setFormData((prevState) => {
                     return {
                       ...prevState,
-                      group_nunmer: e.target.value,
+                      group_number: e.target.value,
                     };
                   })
                 }
               />
               <Form.Control.Feedback type="invalid">
-                Please provide a valid Group Nunme.
+                Please provide a valid Group Number.
               </Form.Control.Feedback>
               <p className="mt-3 custom-p">
                 Are you the Primary Insurance Holder in your household?

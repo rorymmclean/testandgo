@@ -120,6 +120,7 @@ const PatiaentInformationStep1 = () => {
               date_of_birth: formData.dob,
               phone: phoneNumber,
               email: formData.Email,
+              password: formData.password,
               address_type: formData.addressType,
               address: formData.address,
               second_address: formData.secondAddress,

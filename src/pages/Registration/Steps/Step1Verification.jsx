@@ -61,7 +61,10 @@ const Step1Verification = () => {
                 type="submit"
                 className="CommonButton"
                 variant="secondary"
-                onClick={() => navigate('/PatiaentInformationStep')}
+                onClick={() => {
+                  localStorage.setItem('r_step', 3);
+                  navigate('/PatiaentInformationStep');
+                }}
               >
                 Next
               </Button>
