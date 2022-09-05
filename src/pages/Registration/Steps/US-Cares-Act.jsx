@@ -37,18 +37,53 @@ const UsCareAct = () => {
             </p>
 
             <Form>
-              <Form.Label className="label">Patient Rate</Form.Label>
-              <select className="dropDwon" name="day" id="day">
-                <option value="1">1</option>
+              <Form.Label className="label">Patient Race</Form.Label>
+              <select
+                className="dropDwon"
+                name="patient_race"
+                id="patient_race"
+              >
+                <option value="" disabled selected>
+                  Select your option
+                </option>
+
+                <option value="American Indian or Alaska Native">
+                  American Indian or Alaska Native
+                </option>
+                <option value="Asian">Asian</option>
+                <option value="Black or African Anerican">
+                  Black or African Anerican
+                </option>
+                <option value="hispanix">hispanix</option>
+                <option value="Native Hawaiian or Other Pacific Islander">
+                  Native Hawaiian or Other Pacific Islander
+                </option>
+                <option value="White">White</option>
+                <option value="Other Race">Other Race</option>
               </select>
               <Form.Label className="label">Patient Eithnicity</Form.Label>
-              <select className="dropDwon" name="day" id="day">
-                <option value="1">1</option>
+              <select
+                className="dropDwon"
+                name="patient_eithnicity"
+                id="patient_eithnicity"
+              >
+                <option value="" disabled selected>
+                  Select your option
+                </option>
+                <option value="Hispanic or Latino">Hispanic or Latino</option>
+                <option value="Not Hispanic or Latino">
+                  Not Hispanic or Latino
+                </option>
+                <option value="Prefer not to say">Prefer not to say</option>
               </select>
               <Form.Label className="label">Patient Sex</Form.Label>
-              <select className="dropDwon" name="day" id="day">
+              <select className="dropDwon" name="patient_sex" id="patient_sex">
+                <option value="" disabled selected>
+                  Select your option
+                </option>
                 <option value="1">Male</option>
                 <option value="1">Female</option>
+                <option value="1">Other</option>
               </select>
               <Button
                 className="CommonButton mt-4"
