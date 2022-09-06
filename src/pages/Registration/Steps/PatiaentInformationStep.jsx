@@ -129,7 +129,6 @@ const PatiaentInformationStep1 = () => {
             }
           )
           .then((res) => {
-            console.log(res);
             if (res.data.statuscode == '200') {
               localStorage.setItem('r_step', 4);
               setContextData((prevState) => {

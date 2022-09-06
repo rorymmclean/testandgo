@@ -241,7 +241,6 @@ const InsuranceInformation = () => {
                   isInvalid
                   defaultChecked
                   onChange={() => {
-                    console.log('checked');
                     setFormData((prevState) => {
                       return {
                         ...prevState,
