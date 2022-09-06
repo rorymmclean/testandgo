@@ -92,7 +92,7 @@ const TestDependent = () => {
               <Button
                 className="CommonButton mt-4"
                 variant="secondary"
-                type="submit"
+                onClick={() => navigate('/covid-exposure')}
               >
                 Submit
               </Button>
