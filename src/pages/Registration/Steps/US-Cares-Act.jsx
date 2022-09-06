@@ -109,7 +109,6 @@ const UsCareAct = () => {
           }
         )
         .then((res) => {
-          console.log(res);
           if (res.data.statuscode == '200') {
             //if thier is Health Insurance
             localStorage.removeItem('r_step');

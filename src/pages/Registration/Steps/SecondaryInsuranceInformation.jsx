@@ -89,7 +89,6 @@ const SecondaryInsuranceInformation = () => {
           }
         )
         .then((res) => {
-          console.log(res);
           if (res.data.statuscode == '200') {
             //if thier is Health Insurance
             localStorage.setItem('r_step', 7);

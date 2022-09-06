@@ -40,13 +40,11 @@ const Login = () => {
       });
       setValidatedForm(true);
     } else {
-      console.log('جاهز');
       axios
         .get(
           `${REACT_APP_API}/login?loginid=${fromData.email}&password=${fromData.password}`
         )
         .then((res) => {
-          console.log(res.data.body['0'].patient_guid);
           if (res.data.statuscode == '200') {
             localStorage.setItem('user_token', res.data.body['0'].patient_guid);
             setContextData((prevState) => {

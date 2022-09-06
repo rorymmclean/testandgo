@@ -18,7 +18,9 @@
 .cardListItem {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
+
 .cardRight {
   display: flex;
   flex-wrap: wrap;
