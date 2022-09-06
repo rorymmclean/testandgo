@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProgressBar/> Should render progress bar with props 1`] = `ShallowWrapper {}`;
+
+exports[`<ProgressBar/> Should render progress bar without props 1`] = `ShallowWrapper {}`;
