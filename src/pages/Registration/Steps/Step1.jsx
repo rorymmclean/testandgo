@@ -76,7 +76,9 @@ const Step1 = () => {
       .then((res) => {
         if (res.data.statuscode == '200') {
           setEmailError(false);
-
+          localStorage.setItem('Registered_user', res.data.body.patient);
+          localStorage.setItem('Registered_user_code', res.data.body.code);
+          localStorage.setItem('r_step', 2);
           setContextData((prevState) => {
             return {
               ...prevState,

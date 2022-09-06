@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { useContext } from 'react';
 import { useEffect } from 'react';
@@ -10,6 +11,9 @@ import './../Common.css';
 const Profile = () => {
   const navigate = useNavigate();
   const { contextData, setContextData } = useContext(UserContext);
+  /*   axios.defaults.headers = {
+    'x-api-key': REACT_APP_API_KEY,
+  }; */
   useEffect(() => {
     if (localStorage.getItem('user_token') === null) {
       navigate('/');
