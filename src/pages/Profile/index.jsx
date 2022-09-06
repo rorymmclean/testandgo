@@ -1,11 +1,21 @@
 import React from 'react';
+import { useContext } from 'react';
+import { useEffect } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Card from '../../components/Card/Card';
+import UserContext from '../../Context/UserContext';
 import './../Common.css';
 
 const Profile = () => {
   const navigate = useNavigate();
+  const { contextData, setContextData } = useContext(UserContext);
+  useEffect(() => {
+    if (localStorage.getItem('user_token') === null) {
+      navigate('/');
+    }
+  }, []);
+  console.log(contextData);
   return (
     <Container>
       <Row className="justify-content-around mt-5">
