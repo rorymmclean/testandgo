@@ -92,7 +92,7 @@ const Profile = () => {
               New Request
             </Button>
           </Col>
-          <Col xs="10" sm="8" md="7" lg="5" xl="5" xxl="4">
+          <Col xs="10" sm="8" md="7" lg="5" xl="5" xxl="5">
             <Card
               data={{
                 Name: userData.first_name + ' ' + userData.last_name,

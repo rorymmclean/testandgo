@@ -86,9 +86,9 @@ export default function RouterComponent() {
       <UserContext.Provider value={{ contextData, setContextData }}>
         <Routes>
           <Route path="/" element={<Registration />} />
-          <Route path="/registration/step1" element={<RegisterStep1 />} />
+          <Route path="/verification/step1" element={<RegisterStep1 />} />
           <Route
-            path="/registration/step1/verification"
+            path="/verification/step1/verification"
             element={<Step1Verification />}
           />
 

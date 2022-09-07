@@ -6,7 +6,6 @@ const Footer = () => {
     <footer
       style={{
         textAlign: 'center',
-
         paddingBottom: '10px',
       }}
     >
@@ -21,7 +20,7 @@ const Footer = () => {
           fontWeight: '400',
           textAlign: 'center',
           textDecoration: 'none',
-          color: '#9c9cbd',
+          color: '#A6A7AA',
         }}
       >
         © Test and Go by Radeas Labs 2022 Wake Forest, NC USA
@@ -36,7 +35,7 @@ const Footer = () => {
             fontWeight: '400',
             textAlign: 'center',
             textDecoration: 'none',
-            color: '#9c9cbd',
+            color: '#A6A7AA',
             marginRight: '2px',
           }}
         >
@@ -51,7 +50,7 @@ const Footer = () => {
             fontWeight: '400',
             textAlign: 'center',
             textDecoration: 'none',
-            color: '#9c9cbd',
+            color: '#A6A7AA',
             marginRight: '2px',
           }}
         >
@@ -66,7 +65,7 @@ const Footer = () => {
             fontWeight: '400',
             textAlign: 'center',
             textDecoration: 'none',
-            color: '#9c9cbd',
+            color: '#A6A7AA',
           }}
         >
           <span style={{ color: 'red' }}>|</span> Conditions of Sale

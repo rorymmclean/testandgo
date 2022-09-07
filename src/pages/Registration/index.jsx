@@ -13,30 +13,41 @@ const Registration = () => {
       <Row className="justify-content-center mt-5">
         <Col xs="10" sm="8" md="6" lg="5" xl="4" xxl="4">
           <Row className="justify-content-center" sm="8" md="8" xl="8" xxl="8">
-            <Image className="w-80" src={logo} />
+            <Image
+              className="w-80"
+              style={{ cursor: 'pointer' }}
+              src={logo}
+              onClick={() =>
+                window.open('https://www.testandgo.com/', '_blank')
+              }
+            />
 
-            <h4 className="mb-3 registration-h4-page1">
+            <h4 className="mb-5 registration-h4-page1">
               COVID-19 Test Vending Machine
             </h4>
             <Button
               className="CommonButton mt-3"
               variant="secondary"
-              onClick={() => navigate('/registration/step1')}
+              onClick={() => navigate('/verification/step1')}
             >
               Get Started
             </Button>
-            <Row className="registration-row-page1">
+            <Row className="d-flex justify-content-between p-0">
               <Button
-                className="CommonButton  width-48"
+                style={{ width: '48%' }}
+                className="CommonButton  "
                 variant="secondary"
                 onClick={() => navigate('/login')}
               >
                 Sign in
               </Button>
               <Button
-                className="CommonButton width-48"
+                style={{ width: '49%' }}
+                className="CommonButton"
                 variant="secondary"
-                onClick={() => navigate('/')}
+                onClick={() =>
+                  window.open('https://www.testandgo.com/', '_self')
+                }
               >
                 Home
               </Button>
@@ -52,6 +63,7 @@ const Registration = () => {
 
             <a
               className="regiserLink-1 registration-a-page1 mb-5"
+              style={{ marginTop: '10px' }}
               to="/"
               rel="noopener noreferrer"
               target="_blank"
@@ -59,7 +71,9 @@ const Registration = () => {
             >
               Prueba en un Quiosco - Qué Esperar (audio en Español)
             </a>
-            <Footer />
+            <div style={{ position: 'absolute', bottom: '0' }}>
+              <Footer />
+            </div>
           </Row>
         </Col>
       </Row>

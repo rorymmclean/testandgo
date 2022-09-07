@@ -107,7 +107,7 @@ const SecondaryInsuranceInformation = () => {
             res.data.statuscode == '401'
           ) {
             localStorage.setItem('r_step', 1);
-            navigate('/registration/step1');
+            navigate('/verification/step1');
           }
         })
         .catch((error) => {

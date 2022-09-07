@@ -146,17 +146,12 @@ const PatiaentInformationStep1 = () => {
               res.data.statuscode == '401'
             ) {
               localStorage.setItem('r_step', 1);
-              navigate('/registration/step1');
+              navigate('/verification/step1');
             }
           })
           .catch((error) => {
             console.log(error);
           });
-      } else {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
       }
     }
   };
@@ -302,6 +297,7 @@ const PatiaentInformationStep1 = () => {
                   })
                 }
               />
+
               <Form.Control.Feedback type="invalid">
                 Please provide a valid Email.
               </Form.Control.Feedback>

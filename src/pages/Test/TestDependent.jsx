@@ -34,6 +34,9 @@ const TestDependent = () => {
             xxl="4"
           >
             <Stepper step={1} width="70%" />
+            <h4 className="mt-3 patiaentInformation-h4">
+              Is this test for you or a dependent?
+            </h4>
           </Row>
           <Row
             className="justify-content-center mb-3"
@@ -42,9 +45,6 @@ const TestDependent = () => {
             xl="8"
             xxl="8"
           >
-            <h4 className="mt-3 patiaentInformation-h4">
-              Is this test for you or a dependent?
-            </h4>
             <p className="mt-3">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus
               ipsam corrupti quaerat eaque voluptate eius sit debitis. Ipsum
@@ -62,7 +62,7 @@ const TestDependent = () => {
               </Form.Label>
               <Form.Group>
                 <Form.Check
-                  className="mt-3"
+                  className="mt-3 custom-checkbox"
                   label="Myself"
                   name="group1"
                   type="radio"
