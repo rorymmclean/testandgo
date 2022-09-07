@@ -101,7 +101,7 @@ const Dependent = () => {
               <Button
                 className="CommonButton "
                 variant="secondary"
-                onClick={() => navigate('/test-dependent')}
+                onClick={() => navigate('/add-dependents')}
               >
                 Add New
               </Button>
