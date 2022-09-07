@@ -5,7 +5,7 @@ import Footer from '../../../components/common/Footer';
 import Stepper from '../../../components/common/Stepper';
 import img from './../../../assets/images/frontDriverLecinse.jpg';
 import './../../Common.css';
-import './Steps.css';
+import './../../Steps.css';
 
 const DriverLicenseFront = () => {
   const navigate = useNavigate();

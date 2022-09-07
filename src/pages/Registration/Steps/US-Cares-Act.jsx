@@ -8,7 +8,7 @@ import Footer from '../../../components/common/Footer';
 import Stepper from '../../../components/common/Stepper';
 import UserContext from '../../../Context/UserContext';
 import './../../Common.css';
-import './Steps.css';
+import './../../Steps.css';
 import stepsObject from './stepsObject';
 
 const UsCareAct = () => {
@@ -266,10 +266,8 @@ const UsCareAct = () => {
                 <option value="" disabled>
                   Select your option
                 </option>
-                <option value="Hispanic or Latino">Hispanic or Latino</option>
-                <option value="Not Hispanic or Latino">
-                  Not Hispanic or Latino
-                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
                 <option value="Prefer not to say">Prefer not to say</option>
               </select>
               {formDataError.patient_sex && (

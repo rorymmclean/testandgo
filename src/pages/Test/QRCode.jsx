@@ -1,11 +1,11 @@
 import React from 'react';
 import { Button, Col, Container, Form, Row, Image } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Footer from '../../../components/common/Footer';
-import Stepper from '../../../components/common/Stepper';
-import './../../Common.css';
-import img from './../../../assets/images/QR.png';
-import './Steps.css';
+import Stepper from '../../components/common/Stepper';
+import './../Common.css';
+import img from './../../assets/images/QR.png';
+import './../Steps.css';
+import Footer from '../../components/common/Footer';
 
 const QRCode = () => {
   const navigate = useNavigate();

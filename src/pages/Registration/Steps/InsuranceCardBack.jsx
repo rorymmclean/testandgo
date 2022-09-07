@@ -5,7 +5,7 @@ import Footer from '../../../components/common/Footer';
 import Stepper from '../../../components/common/Stepper';
 import img from './../../../assets/images/insuranceCardBack.png';
 import './../../Common.css';
-import './Steps.css';
+import './../../Steps.css';
 
 const InsuranceCardBack = () => {
   const navigate = useNavigate();

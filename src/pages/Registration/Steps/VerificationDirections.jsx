@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Footer from '../../../components/common/Footer';
 import Stepper from '../../../components/common/Stepper';
 import './../../Common.css';
-import './Steps.css';
+import './../../Steps.css';
 
 const VerificationDirections = () => {
   const navigate = useNavigate();

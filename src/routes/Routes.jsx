@@ -55,21 +55,19 @@ const InsuranceCardBack = Loadable(
   lazy(() => import('../pages/Registration/Steps/InsuranceCardBack'))
 );
 const TestDependent = Loadable(
-  lazy(() => import('../pages/Registration/Steps/TestDependent'))
+  lazy(() => import('../pages/Test/TestDependent'))
 );
 
 const CovidExposure = Loadable(
-  lazy(() => import('../pages/Registration/Steps/CovidExposure'))
+  lazy(() => import('../pages/Test/CovidExposure'))
 );
 const CovidSymptoms = Loadable(
-  lazy(() => import('../pages/Registration/Steps/CovidSymptoms'))
+  lazy(() => import('../pages/Test/CovidSymptoms'))
 );
 const CovidTestRequest = Loadable(
-  lazy(() => import('../pages/Registration/Steps/CovidTestRequest'))
+  lazy(() => import('../pages/Test/CovidTestRequest'))
 );
-const QRCode = Loadable(
-  lazy(() => import('../pages/Registration/Steps/QRCode'))
-);
+const QRCode = Loadable(lazy(() => import('../pages/Test/QRCode')));
 const Profile = Loadable(lazy(() => import('../pages/Profile')));
 const History = Loadable(lazy(() => import('../pages/History')));
 

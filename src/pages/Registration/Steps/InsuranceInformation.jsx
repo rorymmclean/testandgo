@@ -6,7 +6,7 @@ import Footer from '../../../components/common/Footer';
 import Stepper from '../../../components/common/Stepper';
 import UserContext from '../../../Context/UserContext';
 import './../../Common.css';
-import './Steps.css';
+import './../../Steps.css';
 import stepsObject from './stepsObject';
 
 const InsuranceInformation = () => {

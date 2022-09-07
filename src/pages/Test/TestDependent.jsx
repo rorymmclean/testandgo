@@ -4,11 +4,11 @@ import { useState } from 'react';
 import { useContext } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Footer from '../../../components/common/Footer';
-import Stepper from '../../../components/common/Stepper';
-import UserContext from '../../../Context/UserContext';
-import './../../Common.css';
-import './Steps.css';
+import Footer from '../../components/common/Footer';
+import Stepper from '../../components/common/Stepper';
+import UserContext from '../../Context/UserContext';
+import './../Common.css';
+import './../Steps.css';
 
 const TestDependent = () => {
   const navigate = useNavigate();

@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import Footer from '../../../components/common/Footer';
 import Stepper from '../../../components/common/Stepper';
 import './../../Common.css';
-import './Steps.css';
+import './../../Steps.css';
 import 'react-phone-number-input/style.css';
 import axios from 'axios';
 import UserContext from '../../../Context/UserContext';
