@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Footer from '../../../components/common/Footer';
-import Stepper from '../../../components/common/Stepper';
-import './../../Common.css';
-import './Steps.css';
+import Stepper from '../../components/common/Stepper';
+import Footer from '../../components/common/Footer';
+import './../Common.css';
+import './../Steps.css';
 
 const CovidSyptoms = () => {
   const navigate = useNavigate();

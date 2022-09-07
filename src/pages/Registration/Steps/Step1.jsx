@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import 'react-phone-number-input/style.css';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
@@ -6,7 +6,7 @@ import Footer from '../../../components/common/Footer';
 import './../../Common.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Stepper from '../../../components/common/Stepper';
-import './Steps.css';
+import './../../Steps.css';
 import axios from 'axios';
 import UserContext from '../../../Context/UserContext';
 
@@ -23,6 +23,13 @@ const Step1 = () => {
   axios.defaults.headers = {
     'x-api-key': REACT_APP_API_KEY,
   };
+  useEffect(() => {
+    console.log(localStorage.getItem('user_token'));
+    if (localStorage.getItem('user_token') !== null) {
+      navigate('/profile');
+    }
+  }, []);
+
   const handlePhoneSubmit = (event) => {
     event.preventDefault();
     if (

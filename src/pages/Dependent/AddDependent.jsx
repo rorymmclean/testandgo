@@ -4,16 +4,15 @@ import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import { useLocation, useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Footer from '../../../components/common/Footer';
-import Stepper from '../../../components/common/Stepper';
-import './../../Common.css';
-import './../../Steps.css';
+import './../Common.css';
+import './../Steps.css';
 import 'react-phone-number-input/style.css';
 import axios from 'axios';
-import UserContext from '../../../Context/UserContext';
-import stepsObject from './stepsObject';
+import UserContext from '../../Context/UserContext';
+import Stepper from '../../components/common/Stepper';
+import Footer from '../../components/common/Footer';
 
-const PatiaentInformationStep1 = () => {
+const AddDependent = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -40,35 +39,10 @@ const PatiaentInformationStep1 = () => {
   axios.defaults.headers = {
     'x-api-key': REACT_APP_API_KEY,
   };
-
-  useEffect(() => {
-    //check were is the real step that user should be in!
-    if (localStorage.getItem('r_step') === null) {
-      navigate('/');
-    } else if (localStorage.getItem('r_step') != 3) {
-      navigate(stepsObject[localStorage.getItem('r_step')]);
-    }
-
-    //udapte or register mode
-    if (
-      location.pathname !== '/PatiaentInformationStep' ||
-      localStorage.getItem('Registered_user') === null
-    ) {
-      navigate('/');
-    } else {
-      setContextData((prevState) => {
-        return {
-          ...prevState,
-          registrationInfo: {
-            setp: 3,
-            patient: localStorage.getItem('Registered_user'),
-            patientCode: localStorage.getItem('Registered_user_code'),
-          },
-        };
-      });
-    }
-  }, []);
-
+  function subtractYears(numOfYears, date = new Date()) {
+    date.setFullYear(date.getFullYear() - numOfYears);
+    return date;
+  }
   const handleSubmit = (event) => {
     event.preventDefault();
     setValidatedForm(false);
@@ -111,61 +85,55 @@ const PatiaentInformationStep1 = () => {
         passwordsNotEqaul === false
       ) {
         //sending data
-        axios
-          .put(
-            `${REACT_APP_API}/patient?patient=${contextData.registrationInfo.patient}`,
-            {
-              first_name: formData.firstName,
-              last_name: formData.lastName,
-              date_of_birth: formData.dob,
-              phone: phoneNumber,
-              email: formData.Email,
-              password: formData.password,
-              address_type: formData.addressType,
-              address: formData.address,
-              second_address: formData.secondAddress,
-              apt: formData.apt,
-              zip: formData.zip,
-            }
-          )
-          .then((res) => {
-            if (res.data.statuscode == '200') {
-              localStorage.setItem('r_step', 4);
-              setContextData((prevState) => {
-                return {
-                  ...prevState,
-                  registrationInfo: {
-                    ...prevState.registrationInfo,
-                    setp: 4,
-                  },
-                };
+        /*  axios
+              .put(
+                `${REACT_APP_API}/patient?patient=${contextData.registrationInfo.patient}`,
+                {
+                  first_name: formData.firstName,
+                  last_name: formData.lastName,
+                  date_of_birth: formData.dob,
+                  phone: phoneNumber,
+                  email: formData.Email,
+                  password: formData.password,
+                  address_type: formData.addressType,
+                  address: formData.address,
+                  second_address: formData.secondAddress,
+                  apt: formData.apt,
+                  zip: formData.zip,
+                }
+              )
+              .then((res) => {
+                if (res.data.statuscode == '200') {
+                  localStorage.setItem('r_step', 4);
+                  setContextData((prevState) => {
+                    return {
+                      ...prevState,
+                      registrationInfo: {
+                        ...prevState.registrationInfo,
+                        setp: 4,
+                      },
+                    };
+                  });
+                  navigate('/health-insurance');
+                } else if (
+                  res.data.statuscode == '400' ||
+                  res.data.statuscode == '401'
+                ) {
+                  localStorage.setItem('r_step', 1);
+                  navigate('/registration/step1');
+                }
+              })
+              .catch((error) => {
+                console.log(error);
               });
-              navigate('/health-insurance');
-            } else if (
-              res.data.statuscode == '400' ||
-              res.data.statuscode == '401'
-            ) {
-              localStorage.setItem('r_step', 1);
-              navigate('/registration/step1');
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
+          } else {
+            window.scrollTo({
+              top: 0,
+              behavior: 'smooth',
+            });*/
       }
     }
   };
-
-  function subtractYears(numOfYears, date = new Date()) {
-    date.setFullYear(date.getFullYear() - numOfYears);
-    return date;
-  }
-
   return (
     <Container>
       <Row className="justify-content-center mt-5">
@@ -189,13 +157,10 @@ const PatiaentInformationStep1 = () => {
             xxl="8"
           >
             <h4 className="patiaentInformation-h4 justify-content-center ">
-              Patiaent Information
+              Patiaent Information : Dependent
             </h4>
             <p>
               Please Provide the Below Information and click on the Next Button.
-            </p>
-            <p className="bold">
-              Click Next to Move to the Patient Information Step.
             </p>
 
             <Form onSubmit={handleSubmit} noValidate validated={validatedForm}>
@@ -473,4 +438,4 @@ const PatiaentInformationStep1 = () => {
   );
 };
 
-export default PatiaentInformationStep1;
+export default AddDependent;
