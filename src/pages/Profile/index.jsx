@@ -73,7 +73,7 @@ const Profile = () => {
             <Button
               className="CommonButton mt-4"
               variant="secondary"
-              /* onClick={() => navigate('/edit-insurance')} */
+              onClick={() => navigate('/dependents')}
             >
               Add / Edit Dependent
             </Button>

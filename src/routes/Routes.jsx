@@ -67,6 +67,10 @@ const CovidSymptoms = Loadable(
 const CovidTestRequest = Loadable(
   lazy(() => import('../pages/Test/CovidTestRequest'))
 );
+
+//dependent
+const Dependent = Loadable(lazy(() => import('../pages/Dependent')));
+
 const QRCode = Loadable(lazy(() => import('../pages/Test/QRCode')));
 const Profile = Loadable(lazy(() => import('../pages/Profile')));
 const History = Loadable(lazy(() => import('../pages/History')));
@@ -124,6 +128,10 @@ export default function RouterComponent() {
           <Route path="/edit-insurance" element={<HealthInsurance />} />
 
           <Route path="/UsCareAct" element={<UsCareAct />} />
+
+          {/* dependent */}
+          <Route path="/dependents" element={<Dependent />} />
+
           <Route path="/terms-of-use" element={<TermOfUse />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/conditions-of-sale" element={<ConditionsOfSale />} />
