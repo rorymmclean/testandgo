@@ -19,7 +19,7 @@ const CovidExposure = () => {
             xl="8"
             xxl="8"
           >
-            <Stepper step={3.5} width="70%" />
+            <Stepper step={6} width="70%" />
             <h4 className="mt-3 HealthInsurance-h4 ">Exposure to COVID-19</h4>
             <p className="mt-3">
               If you were exposed to the virus that causes COVID-19 or have been

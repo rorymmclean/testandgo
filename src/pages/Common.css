@@ -66,7 +66,7 @@
   border: 1px solid #ced4da;
 }
 .form-check-label {
-  color: #000 !important;
+  color: gray !important;
   font-weight: 500;
 }
 
@@ -129,4 +129,29 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
+}
+.form-check-input.is-invalid:checked,
+.was-validated .form-check-input:invalid:checked {
+  background-color: #ea222a;
+  border-color: #ea222a;
+}
+.form-check-input.is-invalid,
+.was-validated .form-check-input:invalid {
+  border-color: gray;
+}
+
+.form-check-input.is-valid:checked,
+.was-validated .form-check-input:valid:checked {
+  background-color: #ea222a;
+  border-color: #ea222a;
+}
+.form-check-input.is-valid,
+.was-validated .form-check-input:valid {
+  border-color: gray;
+}
+.PhoneInputInValid input {
+  border-color: #dc3545;
+}
+.PhoneInputValid input {
+  border-color: #198754;
 }

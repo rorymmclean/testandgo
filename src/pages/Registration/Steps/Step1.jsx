@@ -24,7 +24,6 @@ const Step1 = () => {
     'x-api-key': REACT_APP_API_KEY,
   };
   useEffect(() => {
-    console.log(localStorage.getItem('user_token'));
     if (localStorage.getItem('user_token') !== null) {
       navigate('/profile');
     }
@@ -38,7 +37,7 @@ const Step1 = () => {
       phoneNumber == ''
     ) {
       setPhoneError(true);
-      setPhoneControl('You must enter a valid Phone');
+      setPhoneControl('You must enter a valid Phone Number');
     } else {
       setPhoneError(false);
       axios
@@ -61,7 +60,7 @@ const Step1 = () => {
                 },
               };
             });
-            navigate('/registration/step1/verification');
+            navigate('/verification/step2');
           } else if (res.data.statuscode == '400') {
             setPhoneError(true);
             setPhoneControl(
@@ -74,36 +73,47 @@ const Step1 = () => {
         });
     }
   };
+  const validateEmail = (email) => {
+    return /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(
+      email
+    );
+  };
   const handleEmailSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post(
-        `${REACT_APP_API}/registration?identityType=Email&identityValue=${email}`
-      )
-      .then((res) => {
-        if (res.data.statuscode == '200') {
-          setEmailError(false);
-          localStorage.setItem('Registered_user', res.data.body.patient);
-          localStorage.setItem('Registered_user_code', res.data.body.code);
-          localStorage.setItem('r_step', 2);
-          setContextData((prevState) => {
-            return {
-              ...prevState,
-              patient: res.data.body.patient,
-              patientCode: res.data.body.code,
-            };
-          });
-          navigate('/registration/step1/verification');
-        } else if (res.data.statuscode == '400') {
-          setEmailError(true);
-          setEmailControl(
-            'This mobile number is registered, please enter another number!'
-          );
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setEmailError(false);
+    if (email.length === 0 || validateEmail(email) === false) {
+      setEmailError(true);
+      setEmailControl('You must enter a valid Email Address');
+    } else {
+      axios
+        .post(
+          `${REACT_APP_API}/registration?identityType=Email&identityValue=${email}`
+        )
+        .then((res) => {
+          if (res.data.statuscode == '200') {
+            setEmailError(false);
+            localStorage.setItem('Registered_user', res.data.body.patient);
+            localStorage.setItem('Registered_user_code', res.data.body.code);
+            localStorage.setItem('r_step', 2);
+            setContextData((prevState) => {
+              return {
+                ...prevState,
+                patient: res.data.body.patient,
+                patientCode: res.data.body.code,
+              };
+            });
+            navigate('/verification/step2');
+          } else if (res.data.statuscode == '400') {
+            setEmailError(true);
+            setEmailControl(
+              'This Email is registered, please enter another Email!'
+            );
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
   return (
     <Container>
@@ -113,13 +123,14 @@ const Step1 = () => {
             <Stepper step={0} width="70%" />
             <h4 className="bt-3 steps-custom-h4-1">Verification Step 1</h4>
             <p className="mt-3">
-              Click the button below to verify by either email or text message.
-              This is the method that results will be sent to you. You must
-              click the link in the message in order to verify.
+              Please Provide either your Phone Number or Email Below and Click
+              the Button below your option to verify by EMAIL or TEXT Message.
+              This is the method that the results of your Test will be sent to
+              you.
             </p>
             <p className="bold">
               You must click the Verify By Text or Verify by Email Button to
-              receive a Verification Code and Move forward
+              receive a Verification Code and Move forward.
             </p>
             <Form onSubmit={handlePhoneSubmit}>
               <Form.Label className="label">Phone</Form.Label>
@@ -156,7 +167,7 @@ const Step1 = () => {
                 type="submit"
                 className="CommonButton"
                 variant="secondary"
-                /*                 onClick={() => navigate('/registration/step1/verification')}
+                /*                 onClick={() => navigate('/verification/step2')}
                  */
               >
                 Verify by Text Message
@@ -167,15 +178,14 @@ const Step1 = () => {
               for help. The number of texts may vary.
               <br />
               <Link className="step1-link" to="/privacy">
-                SMS Privacy policy
+                SMS Privacy Policy
               </Link>
             </p>
             <Form onSubmit={handleEmailSubmit}>
-              <Form.Label className="label">Email Address</Form.Label>
+              <Form.Label className="label mt-2">Email Address</Form.Label>
               <Form.Control
-                required
                 className="hieght-50px"
-                type="email"
+                type="text"
                 placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -195,7 +205,7 @@ const Step1 = () => {
                 type="submit"
                 className="CommonButton mb-3"
                 variant="secondary"
-                /* onClick={() => navigate('/registration/step1/verification')} */
+                /* onClick={() => navigate('/verification/step2')} */
               >
                 Verify by Email
               </Button>

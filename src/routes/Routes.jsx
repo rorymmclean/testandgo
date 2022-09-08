@@ -22,7 +22,7 @@ const Step1Verification = Loadable(
 );
 
 const PatiaentInformationStep = Loadable(
-  lazy(() => import('../pages/Registration/Steps/PatiaentInformationStep'))
+  lazy(() => import('../pages/Registration/Steps/PatientInformationStep'))
 );
 const HealthInsurance = Loadable(
   lazy(() => import('../pages/Registration/Steps/HealthInsurance'))
@@ -86,14 +86,11 @@ export default function RouterComponent() {
       <UserContext.Provider value={{ contextData, setContextData }}>
         <Routes>
           <Route path="/" element={<Registration />} />
-          <Route path="/registration/step1" element={<RegisterStep1 />} />
-          <Route
-            path="/registration/step1/verification"
-            element={<Step1Verification />}
-          />
+          <Route path="/verification/step1" element={<RegisterStep1 />} />
+          <Route path="/verification/step2" element={<Step1Verification />} />
 
           <Route
-            path="/PatiaentInformationStep"
+            path="/PatientInformationStep"
             element={<PatiaentInformationStep />}
           />
           <Route path="/health-insurance" element={<HealthInsurance />} />

@@ -13,7 +13,7 @@ const VerificationDirections = () => {
       <Row className="justify-content-center mt-5">
         <Col xs="10" sm="8" md="6" lg="5" xl="4" xxl="4">
           <Row className="justify-content-center" sm="8" md="8" xl="8" xxl="8">
-            <Stepper step={1.5} width="70%" />
+            <Stepper step={3} width="70%" />
             <h4 className="mt-3 HealthInsurance-h4">Verification Directions</h4>
             <p className="mt-3">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ducimus
@@ -31,7 +31,7 @@ const VerificationDirections = () => {
               <Form.Check
                 className="mt-2"
                 style={{ color: '#000' }}
-                label="Acknowledge / Acceptance"
+                label="Acknowledge / Accept "
                 name="group2"
                 type="radio"
                 id={`radio-1`}

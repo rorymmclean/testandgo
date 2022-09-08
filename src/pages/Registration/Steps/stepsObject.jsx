@@ -1,7 +1,7 @@
 const stepsObject = {
-  '1': '/registration/step1',
-  '2': '/registration/step1/verification',
-  '3': '/PatiaentInformationStep',
+  '1': '/verification/step1',
+  '2': '/verification/step2',
+  '3': '/PatientInformationStep',
   '4': '/health-insurance',
   '5': '/insurance-information',
   '6': '/secondary-insurance-information',

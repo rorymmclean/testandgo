@@ -22,6 +22,8 @@ const PatiaentInformationStep1 = () => {
   const [validatedForm, setValidatedForm] = useState(false);
   const [passwordsNotEqaul, setPasswordsNotEqaul] = useState(false);
   const { contextData, setContextData } = useContext(UserContext);
+  const [validpassword, setValidpassword] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -51,7 +53,7 @@ const PatiaentInformationStep1 = () => {
 
     //udapte or register mode
     if (
-      location.pathname !== '/PatiaentInformationStep' ||
+      location.pathname !== '/PatientInformationStep' ||
       localStorage.getItem('Registered_user') === null
     ) {
       navigate('/');
@@ -72,27 +74,47 @@ const PatiaentInformationStep1 = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setValidatedForm(false);
+    localStorage.setItem('setValidatedForm', '0');
     setPasswordsNotEqaul(false);
+    localStorage.setItem('setPasswordsNotEqaul', '0');
     setPhoneError(false);
+    localStorage.setItem('setPhoneError', '0');
+    setValidpassword(false);
+    localStorage.setItem('setValidpassword', '0');
 
+    //phone validation
     if (
       phoneNumber === undefined ||
       isValidPhoneNumber(phoneNumber) === false ||
       phoneNumber == ''
     ) {
       setPhoneError(true);
+      localStorage.setItem('setPhoneError', '1');
+
       setPhoneControl('You must enter a valid Phone');
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       });
     }
-    if (formData.password !== formData.repeatedPassword) {
+    //password and repeated password validation
+    if (
+      formData.repeatedPassword.length !== 0 &&
+      formData.password !== formData.repeatedPassword
+    ) {
       setPasswordsNotEqaul(true);
+      localStorage.setItem('setPasswordsNotEqaul', '1');
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       });
+    }
+    //passowrd conditions
+    let decimal = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+|~=`{}\[\]:";'<>?,./-]).{12,}$/;
+    if (formData.password.match(decimal)) {
+    } else {
+      setValidpassword(true);
+      localStorage.setItem('setValidpassword', '1');
     }
 
     const form = event.currentTarget;
@@ -104,13 +126,20 @@ const PatiaentInformationStep1 = () => {
         behavior: 'smooth',
       });
       setValidatedForm(true);
+      localStorage.setItem('setValidatedForm', '1');
     } else {
       if (
-        validatedForm === false &&
-        phoneError === false &&
-        passwordsNotEqaul === false
+        localStorage.getItem('setValidatedForm') == 0 &&
+        localStorage.getItem('setPasswordsNotEqaul') == 0 &&
+        localStorage.getItem('setPhoneError') == 0 &&
+        localStorage.getItem('setValidpassword') == 0
       ) {
         //sending data
+        console.log('ready');
+        localStorage.removeItem('setValidatedForm');
+        localStorage.removeItem('setPasswordsNotEqaul');
+        localStorage.removeItem('setPhoneError');
+        localStorage.removeItem('setValidpassword');
         axios
           .put(
             `${REACT_APP_API}/patient?patient=${contextData.registrationInfo.patient}`,
@@ -146,17 +175,12 @@ const PatiaentInformationStep1 = () => {
               res.data.statuscode == '401'
             ) {
               localStorage.setItem('r_step', 1);
-              navigate('/registration/step1');
+              navigate('/verification/step1');
             }
           })
           .catch((error) => {
             console.log(error);
           });
-      } else {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth',
-        });
       }
     }
   };
@@ -179,8 +203,11 @@ const PatiaentInformationStep1 = () => {
             xl="4"
             xxl="4"
           >
-            <Stepper step={0.5} width="70%" />
+            <Stepper step={1} width="70%" />
           </Row>
+          <h4 className="patiaentInformation-h4 justify-content-left ">
+            Patient Information
+          </h4>
           <Row
             className="justify-content-center mb-3 "
             sm="8"
@@ -188,15 +215,10 @@ const PatiaentInformationStep1 = () => {
             xl="8"
             xxl="8"
           >
-            <h4 className="patiaentInformation-h4 justify-content-center ">
-              Patiaent Information
-            </h4>
             <p>
               Please Provide the Below Information and click on the Next Button.
             </p>
-            <p className="bold">
-              Click Next to Move to the Patient Information Step.
-            </p>
+            <p className="bold">Click Next to Move to Insurance Information.</p>
 
             <Form onSubmit={handleSubmit} noValidate validated={validatedForm}>
               <Form.Label className="label">First Name</Form.Label>
@@ -258,7 +280,13 @@ const PatiaentInformationStep1 = () => {
               </Row>
               <Form.Label className=" mt-3 label">Phone</Form.Label>
               <PhoneInput
-                className="PhoneInput"
+                className={`PhoneInput ${
+                  phoneError
+                    ? `PhoneInputInValid`
+                    : phoneNumber.length != 0
+                    ? `PhoneInputValid`
+                    : null
+                }`}
                 placeholder="(201) 555-0123"
                 value={phoneNumber}
                 onChange={(e) => {
@@ -302,6 +330,7 @@ const PatiaentInformationStep1 = () => {
                   })
                 }
               />
+
               <Form.Control.Feedback type="invalid">
                 Please provide a valid Email.
               </Form.Control.Feedback>
@@ -324,6 +353,19 @@ const PatiaentInformationStep1 = () => {
               <Form.Control.Feedback type="invalid">
                 Please provide a valid Password.
               </Form.Control.Feedback>
+              {validpassword && (
+                <p
+                  style={{
+                    marginTop: ' 0.25rem',
+                    fontSize: '.875em',
+                    color: '#dc3545',
+                  }}
+                >
+                  Password must be 12 characters long (the longer, the better).
+                  Have a combination of upper and lowercase letters, numbers,
+                  punctuation, and special symbols.
+                </p>
+              )}
               <Form.Label className=" mt-3 label">Confirm Password</Form.Label>
               <Form.Control
                 required
@@ -341,7 +383,7 @@ const PatiaentInformationStep1 = () => {
                 }
               />
               <Form.Control.Feedback type="invalid">
-                Please provide a valid Password.
+                Please Confirm Password.
               </Form.Control.Feedback>
               {passwordsNotEqaul && (
                 <p
@@ -351,7 +393,7 @@ const PatiaentInformationStep1 = () => {
                     color: '#dc3545',
                   }}
                 >
-                  Oops! Password does not matches
+                  Passwords do not match
                 </p>
               )}
 
@@ -392,7 +434,7 @@ const PatiaentInformationStep1 = () => {
                 required
                 className="hieght-50px"
                 type="text"
-                placeholder="1100 Blackwolf Run Rd"
+                placeholder="Enter Address"
                 value={formData.address}
                 onChange={(e) =>
                   setFormData((prevState) => {
@@ -444,7 +486,7 @@ const PatiaentInformationStep1 = () => {
                 value={formData.zip}
                 className="hieght-50px"
                 type="text"
-                placeholder="33896-7"
+                placeholder="Enter Zip Code"
                 onChange={(e) =>
                   setFormData((prevState) => {
                     return {
