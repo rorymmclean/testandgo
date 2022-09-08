@@ -280,8 +280,13 @@ const PatiaentInformationStep1 = () => {
               </Row>
               <Form.Label className=" mt-3 label">Phone</Form.Label>
               <PhoneInput
-                style={{ borderColor: phoneError ? '#dc3545' : null }}
-                className="PhoneInput"
+                className={`PhoneInput ${
+                  phoneError
+                    ? `PhoneInputInValid`
+                    : phoneNumber.length != 0
+                    ? `PhoneInputValid`
+                    : null
+                }`}
                 placeholder="(201) 555-0123"
                 value={phoneNumber}
                 onChange={(e) => {

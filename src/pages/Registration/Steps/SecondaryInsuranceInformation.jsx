@@ -129,7 +129,7 @@ const SecondaryInsuranceInformation = () => {
             xl="4"
             xxl="4"
           >
-            <Stepper step={3} width="70%" />
+            <Stepper step={2} width="70%" />
           </Row>
           <Row
             className="justify-content-left mb-3"
@@ -139,12 +139,12 @@ const SecondaryInsuranceInformation = () => {
             xxl="8"
           >
             <h4 className="mt-3 patiaentInformation-h4">
-              Secodary Insurance Information
+              Secondary Insurance Information
             </h4>
 
             <Form onSubmit={handleSubmit} noValidate validated={validatedForm}>
               <Form.Label className=" mt-3 label">
-                Secodary Insurance Carrier
+                Secondary Insurance Carrier
               </Form.Label>
               <Form.Control
                 required
@@ -204,10 +204,10 @@ const SecondaryInsuranceInformation = () => {
                 }
               />
               <Form.Control.Feedback type="invalid">
-                Please provide a valid Group number.
+                Please provide a valid Group Number.
               </Form.Control.Feedback>
               <p className="mt-3 custom-p">
-                Is this Secondary Insurance for yourself or a legal dependent??
+                Is this Secondary Insurance for yourself or a legal dependent?
               </p>
               <Form.Check
                 className="mt-3"

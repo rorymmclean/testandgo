@@ -116,7 +116,7 @@ const HealthInsurance = () => {
             xl="4"
             xxl="4"
           >
-            <Stepper step={1} width="70%" />
+            <Stepper step={2} width="70%" />
           </Row>
           <Row
             className=" justify-content-center mb-3"
@@ -149,7 +149,7 @@ const HealthInsurance = () => {
               />
 
               <Button
-                className="CommonButton mt-3 "
+                className="CommonButton mt-5 "
                 variant="secondary"
                 style={{
                   marginBottom: '150px',

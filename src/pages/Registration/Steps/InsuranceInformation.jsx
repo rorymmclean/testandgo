@@ -139,7 +139,7 @@ const InsuranceInformation = () => {
             xl="4"
             xxl="4"
           >
-            <Stepper step={1} width="70%" />
+            <Stepper step={2} width="70%" />
           </Row>
           <Row
             className="justify-content-center mb-3"
@@ -193,7 +193,7 @@ const InsuranceInformation = () => {
               <Form.Control.Feedback type="invalid">
                 Please provide a Subscriber / Member ID.
               </Form.Control.Feedback>
-              <Form.Label className=" mt-3 label">Group number</Form.Label>
+              <Form.Label className=" mt-3 label">Group Number</Form.Label>
 
               <Form.Control
                 required
