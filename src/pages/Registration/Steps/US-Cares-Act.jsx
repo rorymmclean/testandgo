@@ -153,11 +153,11 @@ const UsCareAct = () => {
             <Stepper step={5} width="70%" />
             <h4 className="mt-3 HealthInsurance-h4">U.S CARES Act</h4>
             <p style={{ marginTop: '0px' }}>
-              Please Provide the Information Below as it is required by the U.S.
-              CARES Act. Then click the Next Button.
+              Please select an option for each of the drop boxes below and click
+              next to move to Test Questions.
               <br />
               <a
-                className="regiserLink-1 link2"
+                className="regiserLink-1 link2 bold"
                 rel="noopener noreferrer"
                 target="_blank"
                 href="https://home.treasury.gov/policy-issues/coronavirus"
@@ -167,9 +167,20 @@ const UsCareAct = () => {
             </p>
 
             <Form onSubmit={handleSubmit}>
-              <Form.Label className="label">Patient Race</Form.Label>
+              <Form.Label className="label mt-2">Patient Race</Form.Label>
+              {formDataError.patient_race && (
+                <p
+                  style={{
+                    marginTop: ' 0.25rem',
+                    fontSize: '.875em',
+                    color: '#dc3545',
+                  }}
+                >
+                  Please select an option
+                </p>
+              )}
               <select
-                className="dropDwon"
+                className="dropDwon selectbox"
                 name="patient_race"
                 id="patient_race"
                 value={formData.patient_race}
@@ -199,8 +210,11 @@ const UsCareAct = () => {
                 </option>
                 <option value="White">White</option>
                 <option value="Other Race">Other Race</option>
+                <option value="Prefer Not to Say">Prefer Not to Say</option>
               </select>
-              {formDataError.patient_race && (
+
+              <Form.Label className="label mt-3">Patient Eithnicity</Form.Label>
+              {formDataError.patient_ethnicity && (
                 <p
                   style={{
                     marginTop: ' 0.25rem',
@@ -211,10 +225,8 @@ const UsCareAct = () => {
                   Please select an option
                 </p>
               )}
-
-              <Form.Label className="label">Patient Eithnicity</Form.Label>
               <select
-                className="dropDwon"
+                className="dropDwon selectbox"
                 name="patient_eithnicity"
                 id="patient_eithnicity"
                 value={formData.patient_ethnicity}
@@ -236,7 +248,9 @@ const UsCareAct = () => {
                 </option>
                 <option value="Prefer not to say">Prefer not to say</option>
               </select>
-              {formDataError.patient_ethnicity && (
+
+              <Form.Label className="label mt-3">Patient Sex</Form.Label>
+              {formDataError.patient_sex && (
                 <p
                   style={{
                     marginTop: ' 0.25rem',
@@ -247,10 +261,8 @@ const UsCareAct = () => {
                   Please select an option
                 </p>
               )}
-
-              <Form.Label className="label">Patient Sex</Form.Label>
               <select
-                className="dropDwon"
+                className="dropDwon selectbox"
                 name="patient_sex"
                 id="patient_sex"
                 value={formData.patient_sex}
@@ -270,17 +282,7 @@ const UsCareAct = () => {
                 <option value="Female">Female</option>
                 <option value="Prefer not to say">Prefer not to say</option>
               </select>
-              {formDataError.patient_sex && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  Please select an option
-                </p>
-              )}
+
               <Button
                 className="CommonButton mt-4"
                 variant="secondary"
@@ -290,8 +292,8 @@ const UsCareAct = () => {
               </Button>
             </Form>
           </Row>
-          <Footer />
         </Col>
+        <Footer />
       </Row>
     </Container>
   );

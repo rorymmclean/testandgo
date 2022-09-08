@@ -85,14 +85,14 @@ const CovidSyptoms = () => {
                   isInvalid
                 />
                 <Form.Check
-                  label="sore throat"
+                  label="Sore throat"
                   name="group1"
                   type="checkbox"
                   id={`radio-2`}
                   isInvalid
                 />
                 <Form.Check
-                  label="congestion or runny nose"
+                  label="Congestion or runny nose"
                   name="group1"
                   type="checkbox"
                   id={`radio-2`}
@@ -121,7 +121,7 @@ const CovidSyptoms = () => {
                 />
               </Form.Group>
               <p className="mt-4 bold">
-                This list does not include all possible symptoms.
+                This list does not include all possible symptoms.{' '}
                 <span style={{ fontWeight: 'normal' }}>
                   CDC will continue to update this list as we learn more about
                   Covid-19.
@@ -139,7 +139,7 @@ const CovidSyptoms = () => {
                     href="https://home.treasury.gov/policy-issues/coronavirus"
                   >
                     {' '}
-                    Oleder adults
+                    Oleder adults{' '}
                   </a>
                   and people who have underlying
                   <a
@@ -165,7 +165,7 @@ const CovidSyptoms = () => {
               <Form.Label className="mt-3 label">Confirmation</Form.Label>
               <Form.Check
                 className="mt-1"
-                label="Acknowledge / Acceptance"
+                label="Acknowledge / Accept"
                 name="group2"
                 type="checkbox"
                 id={`radio-1`}

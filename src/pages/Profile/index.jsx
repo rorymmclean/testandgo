@@ -66,7 +66,7 @@ const Profile = () => {
             <Button
               className="CommonButton mt-4"
               variant="secondary"
-              onClick={() => navigate('/edit-profile')}
+              /* onClick={() => navigate('/edit-profile')} */
             >
               Edit Profile
             </Button>
@@ -87,7 +87,8 @@ const Profile = () => {
             <Button
               className="CommonButton mt-4"
               variant="secondary"
-              onClick={() => navigate('/test-dependent')}
+              /*               onClick={() => navigate('/test-dependent')}
+               */
             >
               New Request
             </Button>

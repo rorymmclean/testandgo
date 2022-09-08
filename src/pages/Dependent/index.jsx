@@ -64,7 +64,7 @@ const Dependent = () => {
           <Button
             className="CommonButton mt-4"
             variant="secondary"
-            onClick={() => navigate('/edit-profile')}
+            /* onClick={() => navigate('/edit-profile')} */
           >
             Edit Profile
           </Button>
@@ -85,7 +85,7 @@ const Dependent = () => {
           <Button
             className="CommonButton mt-4"
             variant="secondary"
-            onClick={() => navigate('/test-dependent')}
+            /* onClick={() => navigate('/test-dependent')} */
           >
             New Request
           </Button>
@@ -101,7 +101,7 @@ const Dependent = () => {
               <Button
                 className="CommonButton "
                 variant="secondary"
-                onClick={() => navigate('/add-dependents')}
+                /* onClick={() => navigate('/add-dependents')} */
               >
                 Add New
               </Button>
