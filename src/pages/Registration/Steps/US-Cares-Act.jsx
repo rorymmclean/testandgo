@@ -124,7 +124,7 @@ const UsCareAct = () => {
                 },
               };
             });
-            navigate('/login');
+            navigate('/test-dependent');
           } else if (
             res.data.statuscode == '400' ||
             res.data.statuscode == '401'
@@ -150,11 +150,11 @@ const UsCareAct = () => {
             xl="8"
             xxl="8"
           >
-            <Stepper step={3} width="70%" />
+            <Stepper step={5} width="70%" />
             <h4 className="mt-3 HealthInsurance-h4">U.S CARES Act</h4>
             <p style={{ marginTop: '0px' }}>
-              Please Provide the Below Information Below as it is required by
-              the U.S. Act. Then click the Next Button.
+              Please Provide the Information Below as it is required by the U.S.
+              CARES Act. Then click the Next Button.
               <br />
               <a
                 className="regiserLink-1 link2"
@@ -191,9 +191,9 @@ const UsCareAct = () => {
                 </option>
                 <option value="Asian">Asian</option>
                 <option value="Black or African Anerican">
-                  Black or African Anerican
+                  Black or African American
                 </option>
-                <option value="hispanix">hispanix</option>
+                <option value="Hispanic">Hispanic</option>
                 <option value="Native Hawaiian or Other Pacific Islander">
                   Native Hawaiian or Other Pacific Islander
                 </option>

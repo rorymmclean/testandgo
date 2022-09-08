@@ -33,7 +33,7 @@ const TestDependent = () => {
             xl="4"
             xxl="4"
           >
-            <Stepper step={1} width="70%" />
+            <Stepper step={6} width="70%" />
             <h4 className="mt-3 patiaentInformation-h4">
               Is this test for you or a dependent?
             </h4>

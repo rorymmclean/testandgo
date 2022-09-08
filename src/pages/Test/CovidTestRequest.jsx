@@ -20,7 +20,7 @@ const CovidTestRequest = () => {
             xl="8"
             xxl="8"
           >
-            <Stepper step={3.5} width="70%" />
+            <Stepper step={6} width="70%" />
             <h4 className="mt-3 HealthInsurance-h4">Request COVID-19 Test</h4>
             <p className="mt-3">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem

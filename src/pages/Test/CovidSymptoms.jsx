@@ -20,7 +20,7 @@ const CovidSyptoms = () => {
             xl="8"
             xxl="8"
           >
-            <Stepper step={3.5} width="70%" />
+            <Stepper step={6} width="70%" />
             <h4 className="mt-3 HealthInsurance-h4">Symptoms to COVID-19</h4>
             <p className="mt-3">
               People with COVID-19 have had a wide range of symptoms reported -

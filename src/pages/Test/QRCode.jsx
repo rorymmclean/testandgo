@@ -21,7 +21,7 @@ const QRCode = () => {
             xl="8"
             xxl="8"
           >
-            <Stepper step={3.5} width="70%" />
+            <Stepper step={7} width="70%" />
 
             <Form.Label className="text-center label">
               Display this QR code to the vending machine's scanner when
