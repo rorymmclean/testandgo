@@ -60,7 +60,7 @@ const Step1 = () => {
                 },
               };
             });
-            navigate('/verification/step1/verification');
+            navigate('/verification/step2');
           } else if (res.data.statuscode == '400') {
             setPhoneError(true);
             setPhoneControl(
@@ -102,7 +102,7 @@ const Step1 = () => {
                 patientCode: res.data.body.code,
               };
             });
-            navigate('/verification/step1/verification');
+            navigate('/verification/step2');
           } else if (res.data.statuscode == '400') {
             setEmailError(true);
             setEmailControl(
@@ -167,7 +167,7 @@ const Step1 = () => {
                 type="submit"
                 className="CommonButton"
                 variant="secondary"
-                /*                 onClick={() => navigate('/verification/step1/verification')}
+                /*                 onClick={() => navigate('/verification/step2')}
                  */
               >
                 Verify by Text Message
@@ -205,7 +205,7 @@ const Step1 = () => {
                 type="submit"
                 className="CommonButton mb-3"
                 variant="secondary"
-                /* onClick={() => navigate('/verification/step1/verification')} */
+                /* onClick={() => navigate('/verification/step2')} */
               >
                 Verify by Email
               </Button>

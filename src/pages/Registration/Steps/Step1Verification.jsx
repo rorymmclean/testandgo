@@ -59,11 +59,11 @@ const Step1Verification = () => {
               </Form.Control.Feedback>
               <Button
                 type="submit"
-                className="CommonButton"
+                className="CommonButton mt-4"
                 variant="secondary"
                 onClick={() => {
                   localStorage.setItem('r_step', 3);
-                  navigate('/PatiaentInformationStep');
+                  navigate('/PatientInformationStep');
                 }}
               >
                 Next
@@ -73,8 +73,10 @@ const Step1Verification = () => {
               </Button>
             </Form>
           </Row>
-          <Footer />
         </Col>
+        <Row style={{ position: 'absolute', bottom: '0' }}>
+          <Footer />
+        </Row>
       </Row>
     </Container>
   );

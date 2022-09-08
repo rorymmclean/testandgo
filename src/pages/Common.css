@@ -130,3 +130,20 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   -moz-appearance: textfield;
 }
+.form-check-input.is-invalid:checked,
+.was-validated .form-check-input:invalid:checked {
+  background-color: #ea222a;
+}
+.form-check-input.is-invalid,
+.was-validated .form-check-input:invalid {
+  border-color: #ea222a;
+}
+
+.form-check-input.is-valid:checked,
+.was-validated .form-check-input:valid:checked {
+  background-color: #ea222a;
+}
+.form-check-input.is-valid,
+.was-validated .form-check-input:valid {
+  border-color: #ea222a;
+}
