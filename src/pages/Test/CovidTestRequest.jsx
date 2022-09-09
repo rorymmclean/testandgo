@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +9,42 @@ import './../Steps.css';
 
 const CovidTestRequest = () => {
   const navigate = useNavigate();
+  const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
+  axios.defaults.headers = {
+    'x-api-key': REACT_APP_API_KEY,
+  };
 
+  const handleRequest = () => {
+    console.log('sad');
+    let test_for = localStorage.getItem('test_for');
+    if (localStorage.getItem('test_for') !== null) {
+      let patient = localStorage.getItem('user_token');
+      axios
+        .post(`${REACT_APP_API}/case`, {
+          patient_guid: patient,
+          test: 'PCP',
+          test_for: test_for,
+        })
+        .then((res) => {
+          if (res.data.statuscode == '200') {
+            console.log(res.data.body);
+            localStorage.setItem('case_id', res.data.body.case_guid);
+            localStorage.setItem('test_step', 2);
+            navigate('/QR-Code');
+          } else if (
+            res.data.statuscode == '400' ||
+            res.data.statuscode == '401'
+          ) {
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      localStorage.setItem('test_step', 5);
+      navigate('/QR-Code');
+    }
+  };
   return (
     <Container>
       <Row className="justify-content-center mt-5">
@@ -52,10 +88,7 @@ const CovidTestRequest = () => {
                   fontSize: '1rem',
                   width: '48%',
                 }}
-                onClick={() => {
-                  localStorage.setItem('test_step', 5);
-                  navigate('/QR-Code');
-                }}
+                onClick={handleRequest}
               >
                 Submit Request
               </Button>

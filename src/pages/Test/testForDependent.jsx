@@ -16,6 +16,7 @@ const testForDependent = () => {
   const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
   const [userDependent, setUserDependent] = useState([]);
   const { contextData, setContextData } = useContext(UserContext);
+  const navigate = useNavigate();
 
   axios.defaults.headers = {
     'x-api-key': REACT_APP_API_KEY,
@@ -46,7 +47,6 @@ const testForDependent = () => {
       });
   }, []);
 
-  const navigate = useNavigate();
   return (
     <Container>
       <Row className="justify-content-center mt-5">

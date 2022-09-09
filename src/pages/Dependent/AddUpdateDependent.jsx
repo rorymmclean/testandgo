@@ -15,7 +15,7 @@ import Footer from '../../components/common/Footer';
 const AddDependent = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState(' ');
   const [phoneError, setPhoneError] = useState(false);
   const [phoneControl, setPhoneControl] = useState('');
   const [validatedForm, setValidatedForm] = useState(false);
@@ -148,7 +148,7 @@ const AddDependent = () => {
                 formData.first_name + ' ' + formData.last_name
               );
 
-              navigate('/covid-test-request');
+              navigate('/covid-exposure');
             } else if (
               res.data.statuscode == '400' ||
               res.data.statuscode == '401'
@@ -262,7 +262,7 @@ const AddDependent = () => {
                     ? `PhoneInputInValid`
                     : phoneNumber.length != 0
                     ? `PhoneInputValid`
-                    : null
+                    : ``
                 }`}
                 placeholder="(201) 555-0123"
                 value={phoneNumber}

@@ -125,7 +125,7 @@ const Dependent = () => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="d-flex justify-content-center align-items-center">
+                    <td className="d-flex justify-content-center align-items-center">
                       <Image style={{ width: '50px' }} src={cardImage} />
                     </td>
                     <td className="pt-3">Mark</td>

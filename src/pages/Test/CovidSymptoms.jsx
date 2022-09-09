@@ -87,7 +87,6 @@ const CovidSyptoms = () => {
         })
         .then((res) => {
           if (res.data.statuscode == '200') {
-            console.log(res.data.body.kiosk_code);
             localStorage.setItem('kiosk_code', res.data.body.kiosk_code);
             localStorage.setItem('test_step', 4);
             navigate('/covid-test-request');
