@@ -1,13 +1,104 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Stepper from '../../components/common/Stepper';
 import Footer from '../../components/common/Footer';
 import './../Common.css';
 import './../Steps.css';
+import UserContext from '../../Context/UserContext';
+import axios from 'axios';
 
 const CovidSyptoms = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { contextData, setContextData } = useContext(UserContext);
+  const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
+  const [symptoms, setSymptoms] = useState({
+    Fever_or_chills: false,
+    Cough: false,
+    Shortness_of_breath_or_difficulty_breathing: false,
+    Fatigue: false,
+    Muscle_or_body_aches: false,
+    Headache: false,
+    New_loss_of_taste_or_smell: false,
+    Sore_throat: false,
+    Congestion_or_runny_nose: false,
+    Nausea_or_vomiting: false,
+    Diarrhea: false,
+  });
+  const [noSymptoms, setNoSymptoms] = useState(false);
+  const [accepet, setAccept] = useState(false);
+  const [acceptError, setAcceptError] = useState(false);
+  const [checkError, setCheckError] = useState(false);
+  axios.defaults.headers = {
+    'x-api-key': REACT_APP_API_KEY,
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setCheckError(false);
+    localStorage.setItem('checkError', 0);
+    setAcceptError(false);
+    localStorage.setItem('acceptError', 0);
+
+    if (
+      symptoms.Fever_or_chills === false &&
+      symptoms.Cough === false &&
+      symptoms.Shortness_of_breath_or_difficulty_breathing === false &&
+      symptoms.Fatigue === false &&
+      symptoms.Muscle_or_body_aches === false &&
+      symptoms.Headache === false &&
+      symptoms.New_loss_of_taste_or_smell === false &&
+      symptoms.Sore_throat === false &&
+      symptoms.Congestion_or_runny_nose === false &&
+      symptoms.Nausea_or_vomiting === false &&
+      symptoms.Diarrhea === false &&
+      noSymptoms === false
+    ) {
+      setCheckError(true);
+      localStorage.setItem('checkError', 1);
+    }
+    if (accepet === false) {
+      setAcceptError(true);
+      localStorage.setItem('acceptError', 1);
+    }
+    let checkError = localStorage.getItem('checkError');
+    let acceptError = localStorage.getItem('acceptError');
+    if (checkError == 0 && acceptError == 0) {
+      let case_id = localStorage.getItem('case_id');
+      let requestBody = {
+        Fever_or_chills: false,
+        Cough: false,
+        Shortness_of_breath_or_difficulty_breathing: false,
+        Fatigue: false,
+        Muscle_or_body_aches: false,
+        Headache: false,
+        New_loss_of_taste_or_smell: false,
+        Sore_throat: false,
+        Congestion_or_runny_nose: false,
+        Nausea_or_vomiting: false,
+        Diarrhea: false,
+      };
+      axios
+        .put(`${REACT_APP_API}/case?case=${case_id}`, {
+          symptoms: requestBody,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.statuscode == '200') {
+            localStorage.setItem('test_step', 4);
+            navigate('/covid-test-request');
+          } else if (
+            res.data.statuscode == '400' ||
+            res.data.statuscode == '401'
+          ) {
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
 
   return (
     <Container>
@@ -29,7 +120,7 @@ const CovidSyptoms = () => {
               severe symptoms.
             </p>
 
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <Form.Label className="label">
                 Do you or your dependent have any of the following symptoms?
               </Form.Label>
@@ -41,84 +132,225 @@ const CovidSyptoms = () => {
                   type="checkbox"
                   id={`radio-1`}
                   isInvalid
+                  checked={symptoms.Fever_or_chills}
+                  onChange={() => {
+                    /*                     if (symptoms.Fever_or_chills === false) {
+                      if (noSymptoms === true) setNoSymptoms(false);
+                    } */
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        Fever_or_chills: !symptoms.Fever_or_chills,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="Cough"
-                  name="group1"
+                  name="group2"
                   type="checkbox"
                   id={`radio-2`}
                   isInvalid
+                  checked={symptoms.Cough}
+                  onChange={() => {
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        Cough: !symptoms.Cough,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="Shortness of breath or difficulty breathing"
-                  name="group1"
+                  name="group3"
                   type="checkbox"
-                  id={`radio-2`}
+                  id={`radio-3`}
                   isInvalid
+                  checked={symptoms.Shortness_of_breath_or_difficulty_breathing}
+                  onChange={() => {
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        Shortness_of_breath_or_difficulty_breathing: !symptoms.Shortness_of_breath_or_difficulty_breathing,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="Fatigue"
-                  name="group1"
+                  name="group4"
                   type="checkbox"
-                  id={`radio-1`}
+                  id={`radio-4`}
                   isInvalid
+                  checked={symptoms.Fatigue}
+                  onChange={() => {
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        Fatigue: !symptoms.Fatigue,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="Muscle or body aches"
-                  name="group1"
+                  name="group5"
                   type="checkbox"
-                  id={`radio-2`}
+                  id={`radio-5`}
                   isInvalid
+                  checked={symptoms.Muscle_or_body_aches}
+                  onChange={() => {
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        Muscle_or_body_aches: !symptoms.Muscle_or_body_aches,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="Headache"
-                  name="group1"
+                  name="group6"
                   type="checkbox"
-                  id={`radio-2`}
+                  id={`radio-6`}
                   isInvalid
+                  checked={symptoms.Headache}
+                  onChange={() => {
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        Headache: !symptoms.Headache,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="New loss of taste or smell"
-                  name="group1"
+                  name="group7"
                   type="checkbox"
-                  id={`radio-1`}
+                  id={`radio-7`}
                   isInvalid
+                  checked={symptoms.New_loss_of_taste_or_smell}
+                  onChange={() => {
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        New_loss_of_taste_or_smell: !symptoms.New_loss_of_taste_or_smell,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="Sore throat"
-                  name="group1"
+                  name="group8"
                   type="checkbox"
-                  id={`radio-2`}
+                  id={`radio-8`}
                   isInvalid
+                  checked={symptoms.Sore_throat}
+                  onChange={() => {
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        Sore_throat: !symptoms.Sore_throat,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="Congestion or runny nose"
-                  name="group1"
+                  name="group9"
                   type="checkbox"
-                  id={`radio-2`}
+                  id={`radio-9`}
                   isInvalid
+                  checked={symptoms.Congestion_or_runny_nose}
+                  onChange={() => {
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        Congestion_or_runny_nose: !symptoms.Congestion_or_runny_nose,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="Nausea or vomiting"
-                  name="group1"
+                  name="group10"
                   type="checkbox"
-                  id={`radio-1`}
+                  id={`radio-10`}
                   isInvalid
+                  checked={symptoms.Nausea_or_vomiting}
+                  onChange={() => {
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        Nausea_or_vomiting: !symptoms.Nausea_or_vomiting,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="Diarrhea"
-                  name="group1"
+                  name="group11"
                   type="checkbox"
-                  id={`radio-2`}
+                  id={`radio-11`}
                   isInvalid
+                  checked={symptoms.Diarrhea}
+                  onChange={() => {
+                    if (noSymptoms === true) setNoSymptoms(false);
+                    setSymptoms((prev) => {
+                      return {
+                        ...prev,
+                        Diarrhea: !symptoms.Diarrhea,
+                      };
+                    });
+                  }}
                 />
                 <Form.Check
                   label="None of the above"
-                  name="group1"
+                  name="group12"
                   type="checkbox"
-                  id={`radio-2`}
+                  id={`radio-12`}
                   isInvalid
+                  checked={noSymptoms}
+                  onChange={() => {
+                    setSymptoms({
+                      Fever_or_chills: false,
+                      Cough: false,
+                      Shortness_of_breath_or_difficulty_breathing: false,
+                      Fatigue: false,
+                      Muscle_or_body_aches: false,
+                      Headache: false,
+                      New_loss_of_taste_or_smell: false,
+                      Sore_throat: false,
+                      Congestion_or_runny_nose: false,
+                      Nausea_or_vomiting: false,
+                      Diarrhea: false,
+                    });
+                    setNoSymptoms(!noSymptoms);
+                  }}
                 />
+                {checkError && (
+                  <p
+                    style={{
+                      marginTop: ' 0.25rem',
+                      fontSize: '.875em',
+                      color: '#dc3545',
+                    }}
+                  >
+                    This Field is Required
+                  </p>
+                )}
               </Form.Group>
               <p className="mt-4 bold">
                 This list does not include all possible symptoms.{' '}
@@ -166,15 +398,29 @@ const CovidSyptoms = () => {
               <Form.Check
                 className="mt-1"
                 label="Acknowledge / Accept"
-                name="group2"
+                name="group13"
                 type="checkbox"
-                id={`radio-1`}
+                id={`radio-13`}
                 isInvalid
+                checked={accepet}
+                onChange={() => setAccept(!accepet)}
               />
+              {acceptError && (
+                <p
+                  style={{
+                    marginTop: ' 0.25rem',
+                    fontSize: '.875em',
+                    color: '#dc3545',
+                  }}
+                >
+                  This Field is Required
+                </p>
+              )}
               <Button
                 className="CommonButton mt-4"
                 variant="secondary"
-                onClick={() => navigate('/covid-test-request')}
+                type="submit"
+                /* onClick={() => navigate('/covid-test-request')} */
               >
                 Next
               </Button>
