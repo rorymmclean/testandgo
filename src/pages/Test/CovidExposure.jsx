@@ -1,13 +1,44 @@
+import axios from 'axios';
 import React from 'react';
+import { useState } from 'react';
+import { useContext } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../../components/common/Footer';
 import Stepper from '../../components/common/Stepper';
+import UserContext from '../../Context/UserContext';
 import './../Common.css';
 import './../Steps.css';
 const CovidExposure = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const { contextData, setContextData } = useContext(UserContext);
+  const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
+  axios.defaults.headers = {
+    'x-api-key': REACT_APP_API_KEY,
+  };
+  const [formData, setFormData] = useState('Yes');
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let case_id = localStorage.getItem('case_id');
+    axios
+      .put(`${REACT_APP_API}/case?case=${case_id}`, {
+        exposed_to_covid19: formData,
+      })
+      .then((res) => {
+        if (res.data.statuscode == '200') {
+          localStorage.setItem('test_step', 3);
+          navigate('/covid-symptoms');
+        } else if (
+          res.data.statuscode == '400' ||
+          res.data.statuscode == '401'
+        ) {
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Container>
       <Row className="justify-content-center mt-5">
@@ -38,7 +69,7 @@ const CovidExposure = () => {
               </a>
             </p>
 
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <Form.Label className="label">
                 Have you or your dependent recently been exposed to COVID?{' '}
               </Form.Label>
@@ -51,6 +82,7 @@ const CovidExposure = () => {
                   id={`radio-1`}
                   isInvalid
                   defaultChecked
+                  onChange={() => setFormData('Yes')}
                 />
                 <Form.Check
                   label="No"
@@ -58,6 +90,7 @@ const CovidExposure = () => {
                   type="radio"
                   id={`radio-2`}
                   isInvalid
+                  onChange={() => setFormData('No')}
                 />
                 <Form.Check
                   label="I do not know"
@@ -65,13 +98,15 @@ const CovidExposure = () => {
                   type="radio"
                   id={`radio-2`}
                   isInvalid
+                  onChange={() => setFormData('I do not know')}
                 />
               </Form.Group>
 
               <Button
                 className="CommonButton mt-4"
                 variant="secondary"
-                onClick={() => navigate('/covid-symptoms')}
+                type="submit"
+                /* onClick={() => navigate('/covid-symptoms')} */
               >
                 Next
               </Button>

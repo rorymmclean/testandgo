@@ -19,7 +19,35 @@ const TestDependent = () => {
     'x-api-key': REACT_APP_API_KEY,
   };
   const [formData, setFormData] = useState('Myself');
-
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (formData !== 'Myself') {
+      console.log('navigate to add dependent');
+    } else {
+      let patient = localStorage.getItem('user_token');
+      axios
+        .post(`${REACT_APP_API}/case`, {
+          patient_guid: patient,
+          test: 'covid-19',
+          test_for: formData,
+        })
+        .then((res) => {
+          if (res.data.statuscode == '200') {
+            console.log(res.data.body);
+            localStorage.setItem('case_id', res.data.body.case_guid);
+            localStorage.setItem('test_step', 2);
+            navigate('/covid-exposure');
+          } else if (
+            res.data.statuscode == '400' ||
+            res.data.statuscode == '401'
+          ) {
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
   return (
     <Container>
       <Row className="justify-content-center mt-5">
@@ -56,7 +84,7 @@ const TestDependent = () => {
               deleniti atque, veniam rem enim consequuntur itaque.
             </p>
 
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <Form.Label className="label">
                 Please Select the best Option:
               </Form.Label>
@@ -92,7 +120,8 @@ const TestDependent = () => {
               <Button
                 className="CommonButton mt-4"
                 variant="secondary"
-                onClick={() => navigate('/covid-exposure')}
+                type="submit"
+                //onClick={() => navigate('/covid-exposure')}
               >
                 Submit
               </Button>

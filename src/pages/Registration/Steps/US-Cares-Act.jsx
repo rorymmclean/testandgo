@@ -112,8 +112,9 @@ const UsCareAct = () => {
           if (res.data.statuscode == '200') {
             //if thier is Health Insurance
             localStorage.removeItem('r_step');
-
             localStorage.removeItem('Registered_user');
+            localStorage.setItem('user_token', res.data.body.patient_guid);
+            localStorage.setItem('test_step', 1);
 
             setContextData((prevState) => {
               return {
@@ -125,6 +126,7 @@ const UsCareAct = () => {
               };
             });
             navigate('/test-dependent');
+            console.log(res.data.body.patient_guid);
           } else if (
             res.data.statuscode == '400' ||
             res.data.statuscode == '401'
