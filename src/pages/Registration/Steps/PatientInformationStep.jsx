@@ -135,7 +135,6 @@ const PatiaentInformationStep1 = () => {
         localStorage.getItem('setValidpassword') == 0
       ) {
         //sending data
-        console.log('ready');
         localStorage.removeItem('setValidatedForm');
         localStorage.removeItem('setPasswordsNotEqaul');
         localStorage.removeItem('setPhoneError');
@@ -155,9 +154,11 @@ const PatiaentInformationStep1 = () => {
               second_address: formData.secondAddress,
               apt: formData.apt,
               zip: formData.zip,
+              dependents: [],
             }
           )
           .then((res) => {
+            console.log(res);
             if (res.data.statuscode == '200') {
               localStorage.setItem('r_step', 4);
               setContextData((prevState) => {

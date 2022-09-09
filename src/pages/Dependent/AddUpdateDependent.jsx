@@ -19,24 +19,74 @@ const AddDependent = () => {
   const [phoneError, setPhoneError] = useState(false);
   const [phoneControl, setPhoneControl] = useState('');
   const [validatedForm, setValidatedForm] = useState(false);
-  const [passwordsNotEqaul, setPasswordsNotEqaul] = useState(false);
   const { contextData, setContextData } = useContext(UserContext);
+  const [userDependents, setuserDependents] = useState({});
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     dob: subtractYears(18),
     Email: '',
-    addressType: 'US Address',
+    /* addressType: 'US Address', */
     address: '',
-    secondAddress: '',
+    second_address: '',
     apt: '',
     zip: '',
   });
   const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
-
   axios.defaults.headers = {
     'x-api-key': REACT_APP_API_KEY,
   };
+  useEffect(() => {
+    let user_token = localStorage.getItem('user_token');
+    axios
+      .get(`${REACT_APP_API}/patient?patient=${user_token}`)
+      .then((res) => {
+        if (res.data.statuscode == '200') {
+          setuserDependents(res.data.body['0'].dependents);
+          setContextData((prevState) => {
+            return {
+              ...prevState,
+              userData: res.data.body['0'],
+            };
+          });
+          //if update mode
+          let dependentName = localStorage.getItem('test_for');
+          if (dependentName !== null && dependentName !== 'New Dependent') {
+            let dependent = res.data.body['0'].dependents.filter(
+              (element) =>
+                element.first_name + ' ' + element.last_name === dependentName
+            );
+            let dependents = res.data.body['0'].dependents.filter(
+              (element) =>
+                element.first_name + ' ' + element.last_name !== dependentName
+            );
+            setuserDependents(dependents);
+            setFormData({
+              first_name: dependent[0].first_name,
+              last_name: dependent[0].last_name,
+              dob: new Date(dependent[0].dob),
+              Email: dependent[0].Email,
+              address: dependent[0].address,
+              second_address: dependent[0].second_address,
+              apt: dependent[0].apt,
+              zip: dependent[0].zip,
+            });
+            setPhoneNumber(dependent[0].phone_number);
+          }
+
+          //////////////////
+        } else if (
+          res.data.statuscode == '400' ||
+          res.data.statuscode == '401'
+        ) {
+          navigate('/');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   function subtractYears(numOfYears, date = new Date()) {
     date.setFullYear(date.getFullYear() - numOfYears);
     return date;
@@ -44,20 +94,26 @@ const AddDependent = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setValidatedForm(false);
+    localStorage.setItem('setValidatedForm', '0');
     setPhoneError(false);
+    localStorage.setItem('setPhoneError', '0');
 
+    //phone validation
     if (
       phoneNumber === undefined ||
       isValidPhoneNumber(phoneNumber) === false ||
       phoneNumber == ''
     ) {
       setPhoneError(true);
+      localStorage.setItem('setPhoneError', '1');
+
       setPhoneControl('You must enter a valid Phone');
       window.scrollTo({
         top: 0,
         behavior: 'smooth',
       });
     }
+
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -67,58 +123,47 @@ const AddDependent = () => {
         behavior: 'smooth',
       });
       setValidatedForm(true);
+      localStorage.setItem('setValidatedForm', '1');
     } else {
-      if (validatedForm === false && phoneError === false) {
+      if (
+        localStorage.getItem('setValidatedForm') == 0 &&
+        localStorage.getItem('setPhoneError') == 0
+      ) {
         //sending data
-        /*  axios
-              .put(
-                `${REACT_APP_API}/patient?patient=${contextData.registrationInfo.patient}`,
-                {
-                  first_name: formData.firstName,
-                  last_name: formData.lastName,
-                  date_of_birth: formData.dob,
-                  phone: phoneNumber,
-                  email: formData.Email,
-                  password: formData.password,
-                  address_type: formData.addressType,
-                  address: formData.address,
-                  second_address: formData.secondAddress,
-                  apt: formData.apt,
-                  zip: formData.zip,
-                }
-              )
-              .then((res) => {
-                if (res.data.statuscode == '200') {
-                  localStorage.setItem('r_step', 4);
-                  setContextData((prevState) => {
-                    return {
-                      ...prevState,
-                      registrationInfo: {
-                        ...prevState.registrationInfo,
-                        setp: 4,
-                      },
-                    };
-                  });
-                  navigate('/health-insurance');
-                } else if (
-                  res.data.statuscode == '400' ||
-                  res.data.statuscode == '401'
-                ) {
-                  localStorage.setItem('r_step', 1);
-                  navigate('/verification/step1');
-                }
-              })
-              .catch((error) => {
-                console.log(error);
-              });
-          } else {
-            window.scrollTo({
-              top: 0,
-              behavior: 'smooth',
-            });*/
+        localStorage.removeItem('setValidatedForm');
+        localStorage.removeItem('setPhoneError');
+        let patient = localStorage.getItem('user_token');
+        axios
+          .put(`${REACT_APP_API}/patient?patient=${patient}`, {
+            dependents: [
+              ...userDependents,
+              { ...formData, phone_number: phoneNumber },
+            ],
+          })
+          .then((res) => {
+            console.log(res);
+            if (res.data.statuscode == '200') {
+              localStorage.setItem(
+                'test_for',
+                formData.first_name + ' ' + formData.last_name
+              );
+
+              navigate('/covid-test-request');
+            } else if (
+              res.data.statuscode == '400' ||
+              res.data.statuscode == '401'
+            ) {
+              localStorage.setItem('r_step', 1);
+              navigate('/dependent-covid-test');
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     }
   };
+
   return (
     <Container>
       <Row className="justify-content-center mt-5">
@@ -160,12 +205,12 @@ const AddDependent = () => {
                 className="hieght-50px"
                 type="text"
                 placeholder="Enter First Name"
-                value={formData.firstName}
+                value={formData.first_name}
                 onChange={(e) =>
                   setFormData((prevState) => {
                     return {
                       ...prevState,
-                      firstName: e.target.value,
+                      first_name: e.target.value,
                     };
                   })
                 }
@@ -179,12 +224,12 @@ const AddDependent = () => {
                 className="hieght-50px"
                 type="text"
                 placeholder="Enter Last Name"
-                value={formData.lastName}
+                value={formData.last_name}
                 onChange={(e) =>
                   setFormData((prevState) => {
                     return {
                       ...prevState,
-                      lastName: e.target.value,
+                      last_name: e.target.value,
                     };
                   })
                 }
@@ -267,7 +312,7 @@ const AddDependent = () => {
                 Please provide a valid Email.
               </Form.Control.Feedback>
 
-              <Form.Check
+              {/*  <Form.Check
                 className="mt-3 "
                 label="US Address"
                 name="addressType"
@@ -298,7 +343,7 @@ const AddDependent = () => {
                     };
                   })
                 }
-              />
+              /> */}
               <Form.Label className="mb-3 mt-3 label">Address</Form.Label>
               <Form.Control
                 required
@@ -324,12 +369,12 @@ const AddDependent = () => {
               <Form.Control
                 className="hieght-50px"
                 type="text"
-                value={formData.secondAddress}
+                value={formData.second_address}
                 onChange={(e) =>
                   setFormData((prevState) => {
                     return {
                       ...prevState,
-                      secondAddress: e.target.value,
+                      second_address: e.target.value,
                     };
                   })
                 }

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
@@ -12,6 +13,39 @@ import './../Steps.css';
 
 const testForDependent = () => {
   const [select, setSelect] = useState('New Dependent');
+  const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
+  const [userDependent, setUserDependent] = useState([]);
+  const { contextData, setContextData } = useContext(UserContext);
+
+  axios.defaults.headers = {
+    'x-api-key': REACT_APP_API_KEY,
+  };
+
+  useEffect(() => {
+    let user_token = localStorage.getItem('user_token');
+    axios
+      .get(`${REACT_APP_API}/patient?patient=${user_token}`)
+      .then((res) => {
+        if (res.data.statuscode == '200') {
+          setUserDependent(res.data.body['0'].dependents);
+          setContextData((prevState) => {
+            return {
+              ...prevState,
+              userData: res.data.body['0'],
+            };
+          });
+        } else if (
+          res.data.statuscode == '400' ||
+          res.data.statuscode == '401'
+        ) {
+          navigate('/');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const navigate = useNavigate();
   return (
     <Container>
@@ -63,20 +97,40 @@ const testForDependent = () => {
                   isInvalid
                   onChange={(e) => console.log(e.target)}
                 /> */}
+                {userDependent.map((element, index) => {
+                  console.log(element);
+                  return (
+                    <Form.Check
+                      key={index}
+                      label={`${element.first_name + ' ' + element.last_name}`}
+                      name={`group1`}
+                      type="radio"
+                      id={`radio-${index}`}
+                      isInvalid
+                      onChange={(e) =>
+                        setSelect(element.first_name + ' ' + element.last_name)
+                      }
+                    />
+                  );
+                })}
+
                 <Form.Check
                   defaultChecked
                   label="New Dependent"
                   name="group1"
                   type="radio"
-                  id={`radio-2`}
+                  id={`radio`}
                   isInvalid
-                  onChange={() => select('New Dependent')}
+                  onChange={() => setSelect('New Dependent')}
                 />
               </Form.Group>
               <Button
                 className="CommonButton mt-4"
                 variant="secondary"
-                onClick={() => navigate('/add-dependents')}
+                onClick={() => {
+                  localStorage.setItem('test_for', select);
+                  navigate('/add-dependents');
+                }}
               >
                 Submit
               </Button>

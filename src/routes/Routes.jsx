@@ -71,7 +71,11 @@ const CovidTestRequest = Loadable(
 //dependent
 const Dependent = Loadable(lazy(() => import('../pages/Dependent')));
 const AddDependent = Loadable(
-  lazy(() => import('../pages/Dependent/AddDependent'))
+  lazy(() => import('../pages/Dependent/AddUpdateDependent'))
+);
+
+const DependentCovidTest = Loadable(
+  lazy(() => import('../pages/Dependent/DependentCovidTest'))
 );
 
 const TestForDependent = Loadable(
@@ -139,7 +143,10 @@ export default function RouterComponent() {
           <Route path="/dependents" element={<Dependent />} />
           <Route path="/add-dependents" element={<AddDependent />} />
           <Route path="/test-For-dependent" element={<TestForDependent />} />
-
+          <Route
+            path="/dependent-covid-test"
+            element={<DependentCovidTest />}
+          />
           <Route path="/terms-of-use" element={<TermOfUse />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/conditions-of-sale" element={<ConditionsOfSale />} />
