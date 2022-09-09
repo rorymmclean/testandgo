@@ -74,7 +74,7 @@ const AddDependent = Loadable(
   lazy(() => import('../pages/Dependent/AddDependent'))
 );
 
-const QRCode = Loadable(lazy(() => import('../pages/Test/QRCode')));
+const QRcode = Loadable(lazy(() => import('../pages/Test/QRCode')));
 const Profile = Loadable(lazy(() => import('../pages/Profile')));
 const History = Loadable(lazy(() => import('../pages/History')));
 
@@ -120,7 +120,7 @@ export default function RouterComponent() {
           <Route path="/covid-exposure" element={<CovidExposure />} />
           <Route path="/covid-symptoms" element={<CovidSymptoms />} />
           <Route path="/covid-test-request" element={<CovidTestRequest />} />
-          <Route path="/QR-Code" element={<QRCode />} />
+          <Route path="/QR-Code" element={<QRcode />} />
 
           <Route path="/profile" element={<Profile />} />
           <Route path="/history" element={<History />} />

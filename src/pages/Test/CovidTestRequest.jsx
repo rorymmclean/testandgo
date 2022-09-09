@@ -52,7 +52,10 @@ const CovidTestRequest = () => {
                   fontSize: '1rem',
                   width: '48%',
                 }}
-                onClick={() => navigate('/QR-Code')}
+                onClick={() => {
+                  localStorage.setItem('test_step', 5);
+                  navigate('/QR-Code');
+                }}
               >
                 Submit Request
               </Button>
@@ -63,7 +66,7 @@ const CovidTestRequest = () => {
                   fontSize: '1rem',
                   width: '48%',
                 }}
-                onClick={() => navigate('')}
+                onClick={() => navigate('/profile')}
               >
                 Cancel Request
               </Button>

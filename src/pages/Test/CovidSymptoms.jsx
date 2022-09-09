@@ -66,6 +66,8 @@ const CovidSyptoms = () => {
     let acceptError = localStorage.getItem('acceptError');
     if (checkError == 0 && acceptError == 0) {
       let case_id = localStorage.getItem('case_id');
+      localStorage.removeItem('checkError');
+      localStorage.removeItem('acceptError');
       let requestBody = {
         Fever_or_chills: false,
         Cough: false,
@@ -84,8 +86,9 @@ const CovidSyptoms = () => {
           symptoms: requestBody,
         })
         .then((res) => {
-          console.log(res);
           if (res.data.statuscode == '200') {
+            console.log(res.data.body.kiosk_code);
+            localStorage.setItem('kiosk_code', res.data.body.kiosk_code);
             localStorage.setItem('test_step', 4);
             navigate('/covid-test-request');
           } else if (

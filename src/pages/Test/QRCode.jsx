@@ -1,14 +1,22 @@
 import React from 'react';
+import QRCode from 'qrcode';
 import { Button, Col, Container, Form, Row, Image } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Stepper from '../../components/common/Stepper';
 import './../Common.css';
-import img from './../../assets/images/QR.png';
 import './../Steps.css';
 import Footer from '../../components/common/Footer';
+import { useState, useEffect } from 'react';
 
-const QRCode = () => {
+const QRcode = () => {
   const navigate = useNavigate();
+  const [imgSrc, setImageSrc] = useState();
+  const [code, setCode] = useState(() => localStorage.getItem('kiosk_code'));
+  useEffect(() => {
+    QRCode.toDataURL('code').then((data) => {
+      setImageSrc(data);
+    });
+  }, []);
 
   return (
     <Container>
@@ -27,9 +35,9 @@ const QRCode = () => {
               Display this QR code to the vending machine's scanner when
               prompted.
             </Form.Label>
-            <Image className="w-80" src={img} />
+            <Image className="w-70" src={imgSrc} />
             <h3 className="text-center">
-              ID:<span className="bold">58AHEE</span>
+              ID:<span className="bold">{code}</span>
             </h3>
             <ol className="qr-notice">
               <li className="mt-3">
@@ -91,4 +99,4 @@ const QRCode = () => {
   );
 };
 
-export default QRCode;
+export default QRcode;
