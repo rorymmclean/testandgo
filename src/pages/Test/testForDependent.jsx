@@ -3,52 +3,16 @@ import React from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import Footer from '../../components/common/Footer';
 import Stepper from '../../components/common/Stepper';
 import UserContext from '../../Context/UserContext';
 import './../Common.css';
 import './../Steps.css';
 
-const TestDependent = () => {
+const testForDependent = () => {
+  const [select, setSelect] = useState('New Dependent');
   const navigate = useNavigate();
-  const location = useLocation();
-  const { contextData, setContextData } = useContext(UserContext);
-  const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
-  axios.defaults.headers = {
-    'x-api-key': REACT_APP_API_KEY,
-  };
-  const [formData, setFormData] = useState('Myself');
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (formData !== 'Myself') {
-      console.log('navigate to add dependent');
-      navigate('/test-For-dependent');
-    } else {
-      let patient = localStorage.getItem('user_token');
-      axios
-        .post(`${REACT_APP_API}/case`, {
-          patient_guid: patient,
-          test: 'covid-19',
-          test_for: formData,
-        })
-        .then((res) => {
-          if (res.data.statuscode == '200') {
-            console.log(res.data.body);
-            localStorage.setItem('case_id', res.data.body.case_guid);
-            localStorage.setItem('test_step', 2);
-            navigate('/covid-exposure');
-          } else if (
-            res.data.statuscode == '400' ||
-            res.data.statuscode == '401'
-          ) {
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
   return (
     <Container>
       <Row className="justify-content-center mt-5">
@@ -63,10 +27,10 @@ const TestDependent = () => {
             xxl="4"
           >
             <Stepper step={6} width="70%" />
-            <h4 className="mt-3 patiaentInformation-h4">
-              Is this test for you or a dependent?
-            </h4>
           </Row>
+          <h4 className="mt-3 patiaentInformation-h4">
+            Is this test for a New or Existing dependent?
+          </h4>
           <Row
             className="justify-content-center mb-3"
             sm="8"
@@ -85,44 +49,34 @@ const TestDependent = () => {
               deleniti atque, veniam rem enim consequuntur itaque.
             </p>
 
-            <Form onSubmit={handleSubmit}>
+            <Form /* onSubmit={handleSubmit} */>
               <Form.Label className="label">
                 Please Select the best Option:
               </Form.Label>
               <Form.Group>
-                <Form.Check
+                {/*                 <Form.Check
                   className="mt-3 custom-checkbox"
-                  label="Myself"
+                  label="jaci kubik"
                   name="group1"
                   type="radio"
-                  id={`radio-1`}
+                  id={'jaci kubik'}
                   isInvalid
-                  defaultChecked
-                  onChange={() => setFormData('Myself')}
-                />
+                  onChange={(e) => console.log(e.target)}
+                /> */}
                 <Form.Check
-                  label="Dependent Under the age of 18"
+                  defaultChecked
+                  label="New Dependent"
                   name="group1"
                   type="radio"
                   id={`radio-2`}
                   isInvalid
-                  onChange={() => setFormData('Dependent Under the age of 18')}
-                />
-                <Form.Check
-                  label="Dependent Over the age of 18"
-                  name="group1"
-                  type="radio"
-                  id={`radio-3`}
-                  isInvalid
-                  onChange={() => setFormData('Dependent Over the age of 18')}
+                  onChange={() => select('New Dependent')}
                 />
               </Form.Group>
-
               <Button
                 className="CommonButton mt-4"
                 variant="secondary"
-                type="submit"
-                //onClick={() => navigate('/covid-exposure')}
+                onClick={() => navigate('/add-dependents')}
               >
                 Submit
               </Button>
@@ -135,4 +89,4 @@ const TestDependent = () => {
   );
 };
 
-export default TestDependent;
+export default testForDependent;

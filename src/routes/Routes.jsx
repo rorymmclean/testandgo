@@ -39,8 +39,8 @@ const VerificationDirections = Loadable(
   lazy(() => import('../pages/Registration/Steps/VerificationDirections'))
 );
 
-const UsCareAct = Loadable(
-  lazy(() => import('../pages/Registration/Steps/US-Cares-Act'))
+const PatientDemographics = Loadable(
+  lazy(() => import('../pages/Registration/Steps/PatientDemographics'))
 );
 const DriverLicenseFront = Loadable(
   lazy(() => import('../pages/Registration/Steps/DriverLicenseFront'))
@@ -72,6 +72,10 @@ const CovidTestRequest = Loadable(
 const Dependent = Loadable(lazy(() => import('../pages/Dependent')));
 const AddDependent = Loadable(
   lazy(() => import('../pages/Dependent/AddDependent'))
+);
+
+const TestForDependent = Loadable(
+  lazy(() => import('../pages/Test/testForDependent'))
 );
 
 const QRcode = Loadable(lazy(() => import('../pages/Test/QRCode')));
@@ -127,11 +131,14 @@ export default function RouterComponent() {
           <Route path="/edit-profile" element={<PatiaentInformationStep />} />
           <Route path="/edit-insurance" element={<HealthInsurance />} />
 
-          <Route path="/UsCareAct" element={<UsCareAct />} />
-
+          <Route
+            path="/PatientDemographics"
+            element={<PatientDemographics />}
+          />
           {/* dependent */}
           <Route path="/dependents" element={<Dependent />} />
           <Route path="/add-dependents" element={<AddDependent />} />
+          <Route path="/test-For-dependent" element={<TestForDependent />} />
 
           <Route path="/terms-of-use" element={<TermOfUse />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />

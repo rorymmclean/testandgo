@@ -46,7 +46,7 @@ const InsuranceCardBack = () => {
                 onClick={() => {
                   localStorage.setItem('r_step', 12);
 
-                  navigate('/UsCareAct');
+                  navigate('/PatientDemographics');
                 }}
               >
                 Submit

@@ -96,7 +96,7 @@ const CovidExposure = () => {
                   label="I do not know"
                   name="group1"
                   type="radio"
-                  id={`radio-2`}
+                  id={`radio-3`}
                   isInvalid
                   onChange={() => setFormData('I do not know')}
                 />

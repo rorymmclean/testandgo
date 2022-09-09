@@ -26,8 +26,6 @@ const AddDependent = () => {
     lastName: '',
     dob: subtractYears(18),
     Email: '',
-    password: '',
-    repeatedPassword: '',
     addressType: 'US Address',
     address: '',
     secondAddress: '',
@@ -46,7 +44,6 @@ const AddDependent = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setValidatedForm(false);
-    setPasswordsNotEqaul(false);
     setPhoneError(false);
 
     if (
@@ -61,14 +58,6 @@ const AddDependent = () => {
         behavior: 'smooth',
       });
     }
-    if (formData.password !== formData.repeatedPassword) {
-      setPasswordsNotEqaul(true);
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth',
-      });
-    }
-
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -79,11 +68,7 @@ const AddDependent = () => {
       });
       setValidatedForm(true);
     } else {
-      if (
-        validatedForm === false &&
-        phoneError === false &&
-        passwordsNotEqaul === false
-      ) {
+      if (validatedForm === false && phoneError === false) {
         //sending data
         /*  axios
               .put(
@@ -147,8 +132,14 @@ const AddDependent = () => {
             xl="4"
             xxl="4"
           >
-            <Stepper step={0.5} width="70%" />
+            <Stepper step={6} width="70%" />
           </Row>
+          <h4
+            style={{ width: '106%' }}
+            className="patiaentInformation-h4 justify-content-left "
+          >
+            Patient Information: Dependent
+          </h4>
           <Row
             className="justify-content-center mb-3 "
             sm="8"
@@ -156,12 +147,10 @@ const AddDependent = () => {
             xl="8"
             xxl="8"
           >
-            <h4 className="patiaentInformation-h4 justify-content-center ">
-              Patiaent Information : Dependent
-            </h4>
             <p>
               Please Provide the Below Information and click on the Next Button.
             </p>
+            <p className="bold">Click Next to Move to Insurance Information.</p>
 
             <Form onSubmit={handleSubmit} noValidate validated={validatedForm}>
               <Form.Label className="label">First Name</Form.Label>
@@ -223,7 +212,13 @@ const AddDependent = () => {
               </Row>
               <Form.Label className=" mt-3 label">Phone</Form.Label>
               <PhoneInput
-                className="PhoneInput"
+                className={`PhoneInput ${
+                  phoneError
+                    ? `PhoneInputInValid`
+                    : phoneNumber.length != 0
+                    ? `PhoneInputValid`
+                    : null
+                }`}
                 placeholder="(201) 555-0123"
                 value={phoneNumber}
                 onChange={(e) => {
@@ -267,58 +262,10 @@ const AddDependent = () => {
                   })
                 }
               />
+
               <Form.Control.Feedback type="invalid">
                 Please provide a valid Email.
               </Form.Control.Feedback>
-              <Form.Label className=" mt-3 label">Enter Password</Form.Label>
-              <Form.Control
-                required
-                className="hieght-50px"
-                type="Password"
-                placeholder="*********"
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData((prevState) => {
-                    return {
-                      ...prevState,
-                      password: e.target.value,
-                    };
-                  })
-                }
-              />
-              <Form.Control.Feedback type="invalid">
-                Please provide a valid Password.
-              </Form.Control.Feedback>
-              <Form.Label className=" mt-3 label">Confirm Password</Form.Label>
-              <Form.Control
-                required
-                className="hieght-50px"
-                type="Password"
-                placeholder="*********"
-                value={formData.repeatedPassword}
-                onChange={(e) =>
-                  setFormData((prevState) => {
-                    return {
-                      ...prevState,
-                      repeatedPassword: e.target.value,
-                    };
-                  })
-                }
-              />
-              <Form.Control.Feedback type="invalid">
-                Please provide a valid Password.
-              </Form.Control.Feedback>
-              {passwordsNotEqaul && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  Oops! Password does not matches
-                </p>
-              )}
 
               <Form.Check
                 className="mt-3 "
@@ -357,7 +304,7 @@ const AddDependent = () => {
                 required
                 className="hieght-50px"
                 type="text"
-                placeholder="1100 Blackwolf Run Rd"
+                placeholder="Enter Address"
                 value={formData.address}
                 onChange={(e) =>
                   setFormData((prevState) => {
@@ -409,7 +356,7 @@ const AddDependent = () => {
                 value={formData.zip}
                 className="hieght-50px"
                 type="text"
-                placeholder="33896-7"
+                placeholder="Enter Zip Code"
                 onChange={(e) =>
                   setFormData((prevState) => {
                     return {

@@ -11,7 +11,7 @@ import './../../Common.css';
 import './../../Steps.css';
 import stepsObject from './stepsObject';
 
-const UsCareAct = () => {
+const PatientDemographics = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { contextData, setContextData } = useContext(UserContext);
@@ -40,7 +40,7 @@ const UsCareAct = () => {
 
     //udapte or register mode
     if (
-      location.pathname !== '/UsCareAct' ||
+      location.pathname !== '/PatientDemographics' ||
       localStorage.getItem('Registered_user') === null
     ) {
       navigate('/');
@@ -153,7 +153,7 @@ const UsCareAct = () => {
             xxl="8"
           >
             <Stepper step={5} width="70%" />
-            <h4 className="mt-3 HealthInsurance-h4">U.S CARES Act</h4>
+            <h4 className="mt-3 HealthInsurance-h4">Patient Demographics</h4>
             <p style={{ marginTop: '0px' }}>
               Please select an option for each of the drop boxes below and click
               next to move to Test Questions.
@@ -301,4 +301,4 @@ const UsCareAct = () => {
   );
 };
 
-export default UsCareAct;
+export default PatientDemographics;

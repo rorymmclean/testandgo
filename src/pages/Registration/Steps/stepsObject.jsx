@@ -10,6 +10,6 @@ const stepsObject = {
   '9': '/driver-license-Back',
   '10': '/insurance-card-front',
   '11': '/insurance-card-back',
-  '12': '/UsCareAct',
+  '12': '/PatientDemographics',
 };
 export default stepsObject;

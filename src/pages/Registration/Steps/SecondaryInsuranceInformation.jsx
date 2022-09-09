@@ -230,7 +230,7 @@ const SecondaryInsuranceInformation = () => {
                 label="Dependent"
                 name="group1"
                 type="radio"
-                id={`radio-1`}
+                id={`radio-2`}
                 isInvalid
                 onChange={() =>
                   setFormData((prevState) => {
@@ -250,7 +250,7 @@ const SecondaryInsuranceInformation = () => {
                   label="Yes"
                   name="group2"
                   type="radio"
-                  id={`radio-1`}
+                  id={`radio-3`}
                   isInvalid
                   onChange={() =>
                     setFormData((prevState) => {
@@ -265,7 +265,7 @@ const SecondaryInsuranceInformation = () => {
                   label="No"
                   name="group2"
                   type="radio"
-                  id={`radio-2`}
+                  id={`radio-4`}
                   defaultChecked
                   isInvalid
                   onChange={() =>

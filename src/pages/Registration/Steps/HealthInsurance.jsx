@@ -87,7 +87,7 @@ const HealthInsurance = () => {
               };
             });
             localStorage.setItem('healthi_nsurance', 'no');
-            navigate('/UsCareAct');
+            navigate('/PatientDemographics');
             navigate(0);
           }
         } else if (

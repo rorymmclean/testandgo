@@ -110,7 +110,7 @@ const InsuranceInformation = () => {
                   },
                 };
               });
-              navigate('/UsCareAct');
+              navigate('/PatientDemographics');
               //navigate(0);
             }
           } else if (
@@ -237,7 +237,7 @@ const InsuranceInformation = () => {
                   label="No"
                   name="group1"
                   type="radio"
-                  id={`radio-1`}
+                  id={`radio-2`}
                   isInvalid
                   defaultChecked
                   onChange={() => {
@@ -259,7 +259,7 @@ const InsuranceInformation = () => {
                   label="Yes"
                   name="group2"
                   type="radio"
-                  id={`radio-1`}
+                  id={`radio-3`}
                   isInvalid
                   onChange={(e) =>
                     setFormData((prevState) => {
@@ -274,7 +274,7 @@ const InsuranceInformation = () => {
                   label="No"
                   name="group2"
                   type="radio"
-                  id={`radio-2`}
+                  id={`radio-4`}
                   defaultChecked
                   isInvalid
                   onChange={() =>
