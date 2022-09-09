@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useContext, useState } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Card from '../../components/Card/Card';
+import Card from '../../components/Card/PatientCard';
 import Loading from '../../components/common/Loadable/Loading';
 import UserContext from '../../Context/UserContext';
 import './../Common.css';
@@ -27,6 +27,7 @@ const Profile = () => {
           console.log(res);
           if (res.data.statuscode == '200') {
             setUserData(res.data.body['0']);
+            console.log(res.data);
             setContextData((prevState) => {
               return {
                 ...prevState,

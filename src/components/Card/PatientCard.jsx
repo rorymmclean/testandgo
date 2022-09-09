@@ -10,7 +10,7 @@ const Card = ({ ...props }) => {
     is_primary_insurance_holder,
     primary_insurance_carrier,
     subscriber_member_id,
-  } = props.data.InsuranceInfo;
+  } = props.data.InsuranceInfo || '';
 
   return (
     <Container className="cardContainer ">
@@ -48,27 +48,32 @@ const Card = ({ ...props }) => {
               <b>Health Insurance:</b>
               <span>{health_insurance}</span>
             </ListGroup.Item>
-            <ListGroup.Item className="cardListItem">
-              <b>Group Number:</b>
-              <span>{group_number}</span>
-            </ListGroup.Item>
-            <ListGroup.Item className="cardListItem">
-              <b>secondary insurance:</b>{' '}
-              <span>{have_secondary_insurance_want_to_include}</span>
-            </ListGroup.Item>
-            <ListGroup.Item className="cardListItem">
-              <b>Primary Insurance Holder:</b>
-              <span>{is_primary_insurance_holder}</span>
-            </ListGroup.Item>
-            <ListGroup.Item className="cardListItem">
-              <b>Primary Insurance Carrier:</b>
-              <span>{primary_insurance_carrier}</span>
-            </ListGroup.Item>
 
-            <ListGroup.Item className="cardListItem">
-              <b>Subscriber Member Id:</b>
-              <span>{subscriber_member_id}</span>
-            </ListGroup.Item>
+            {props.data.InsuranceInfo != undefined ? (
+              <>
+                <ListGroup.Item className="cardListItem">
+                  <b>Group Number:</b>
+                  <span>{group_number}</span>
+                </ListGroup.Item>
+                <ListGroup.Item className="cardListItem">
+                  <b>secondary insurance:</b>{' '}
+                  <span>{have_secondary_insurance_want_to_include}</span>
+                </ListGroup.Item>
+                <ListGroup.Item className="cardListItem">
+                  <b>Primary Insurance Holder:</b>
+                  <span>{is_primary_insurance_holder}</span>
+                </ListGroup.Item>
+                <ListGroup.Item className="cardListItem">
+                  <b>Primary Insurance Carrier:</b>
+                  <span>{primary_insurance_carrier}</span>
+                </ListGroup.Item>
+
+                <ListGroup.Item className="cardListItem">
+                  <b>Subscriber Member Id:</b>
+                  <span>{subscriber_member_id}</span>
+                </ListGroup.Item>
+              </>
+            ) : null}
           </ListGroup>
         </Col>
       </Row>

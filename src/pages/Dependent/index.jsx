@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useEffect, useContext, useState } from 'react';
 import { Button, Col, Container, Image, Row, Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Card from '../../components/Card/Card';
 import Loading from '../../components/common/Loadable/Loading';
 import UserContext from '../../Context/UserContext';
 import cardImage from './../../assets/images/cardImage.png';
