@@ -4,10 +4,11 @@ import { Button, Col, Container, Image, Row, Table } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../components/common/Loadable/Loading';
 import UserContext from '../../Context/UserContext';
-import cardImage from './../../assets/images/cardImage.png';
+import { FaPen } from 'react-icons/fa';
+
 import './../Common.css';
 const Dependent = () => {
-  const [userData, setUserData] = useState({});
+  const [userDependent, setUserDependent] = useState([]);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const { contextData, setContextData } = useContext(UserContext);
@@ -18,15 +19,13 @@ const Dependent = () => {
   useEffect(() => {
     if (localStorage.getItem('user_token') === null) {
       navigate('/');
-    }
-    /*  else {
+    } else {
       let user_token = localStorage.getItem('user_token');
       axios
         .get(`${REACT_APP_API}/patient?patient=${user_token}`)
         .then((res) => {
-          console.log(res);
           if (res.data.statuscode == '200') {
-            setUserData(res.data.body['0']);
+            setUserDependent(res.data.body['0'].dependents);
             setContextData((prevState) => {
               return {
                 ...prevState,
@@ -44,13 +43,25 @@ const Dependent = () => {
         .catch((error) => {
           console.log(error);
         });
-    } */
+    }
   }, []);
-  return (
+
+  const handleAddNew = () => {
+    console.log('hi');
+    navigate('/New-dependent');
+  };
+  const handleEdit = (name) => {
+    localStorage.setItem('edit_name', name);
+    navigate('/update-dependent');
+  };
+
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Container>
       <Row className="justify-content-around mt-5">
         <Col xs="10" sm="8" md="5" lg="4" xl="4" xxl="4" className="mb-3 ">
-          <Button className="CommonButton" onClick={() => navigate('')}>
+          <Button className="CommonButton" onClick={() => navigate('/profile')}>
             Home
           </Button>
           <Button
@@ -100,7 +111,7 @@ const Dependent = () => {
               <Button
                 className="CommonButton "
                 variant="secondary"
-                /* onClick={() => navigate('/add-dependents')} */
+                onClick={handleAddNew}
               >
                 Add New
               </Button>
@@ -123,16 +134,27 @@ const Dependent = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="d-flex justify-content-center align-items-center">
-                      <Image style={{ width: '50px' }} src={cardImage} />
-                    </td>
-                    <td className="pt-3">Mark</td>
-                    <td className="pt-3">Otto</td>
-                    <td className="pt-3">@mdo</td>
-                    <td className="pt-3">Otto</td>
-                    <td className="pt-3">@mdo</td>
-                  </tr>
+                  {userDependent.map((element, index) => {
+                    return (
+                      <tr
+                        key={index}
+                        onClick={() =>
+                          handleEdit(
+                            element.first_name + ' ' + element.last_name
+                          )
+                        }
+                      >
+                        <td className="  d-flex justify-content-center align-items-center ">
+                          <FaPen style={{ height: '30px' }} />
+                        </td>
+                        <td className="pt-3">{element.first_name}</td>
+                        <td className="pt-3">{element.last_name}</td>
+                        <td className="pt-3">{element.dob.slice(0, 10)}</td>
+                        <td className="pt-3">{element.phone_number}</td>
+                        <td className="pt-3">{element.address}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </Table>
             </Row>

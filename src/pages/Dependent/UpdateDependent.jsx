@@ -12,16 +12,19 @@ import axios from 'axios';
 import UserContext from '../../Context/UserContext';
 import Stepper from '../../components/common/Stepper';
 import Footer from '../../components/common/Footer';
+import Loading from '../../components/common/Loadable/Loading';
 
-const AddDependent = () => {
+const UpdateDependent = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
   const [phoneNumber, setPhoneNumber] = useState(' ');
   const [phoneError, setPhoneError] = useState(false);
   const [phoneControl, setPhoneControl] = useState('');
   const [validatedForm, setValidatedForm] = useState(false);
   const { contextData, setContextData } = useContext(UserContext);
   const [userDependents, setuserDependents] = useState({});
+
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -51,7 +54,7 @@ const AddDependent = () => {
             };
           });
           //if update mode
-          let dependentName = localStorage.getItem('test_for');
+          let dependentName = localStorage.getItem('edit_name');
           if (dependentName !== null && dependentName !== 'New Dependent') {
             let dependent = res.data.body['0'].dependents.filter(
               (element) =>
@@ -73,6 +76,7 @@ const AddDependent = () => {
               zip: dependent[0].zip,
             });
             setPhoneNumber(dependent[0].phone_number);
+            setIsLoading(false);
           }
 
           //////////////////
@@ -144,10 +148,9 @@ const AddDependent = () => {
           .then((res) => {
             console.log(res);
             if (res.data.statuscode == '200') {
-              localStorage.setItem(
-                'test_for',
-                formData.first_name + ' ' + formData.last_name
-              );
+              localStorage.removeItem('edit_name');
+
+              navigate('/dependents');
             } else if (
               res.data.statuscode == '400' ||
               res.data.statuscode == '401'
@@ -159,47 +162,16 @@ const AddDependent = () => {
           .catch((error) => {
             console.log(error);
           });
-        /// create a case
-        axios
-          .post(`${REACT_APP_API}/case`, {
-            patient_guid: patient,
-            test: 'PCP',
-            test_for: formData.first_name + ' ' + formData.last_name,
-          })
-          .then((res) => {
-            if (res.data.statuscode == '200') {
-              console.log(res.data.body);
-              localStorage.setItem('case_id', res.data.body.case_guid);
-              localStorage.setItem('test_step', 2);
-              navigate('/covid-exposure');
-            } else if (
-              res.data.statuscode == '400' ||
-              res.data.statuscode == '401'
-            ) {
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
       }
     }
   };
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Container>
       <Row className="justify-content-center mt-5">
         <Col xs="10" sm="8" md="6" lg="5" xl="4" xxl="4">
-          <Row
-            className="justify-content-center"
-            xs="10"
-            sm="8"
-            md="6"
-            lg="5"
-            xl="4"
-            xxl="4"
-          >
-            <Stepper step={6} width="70%" />
-          </Row>
           <h4
             style={{ width: '106%' }}
             className="patiaentInformation-h4 justify-content-left "
@@ -451,4 +423,4 @@ const AddDependent = () => {
   );
 };
 
-export default AddDependent;
+export default UpdateDependent;

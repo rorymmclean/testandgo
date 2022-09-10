@@ -54,7 +54,10 @@ const Profile = () => {
       <Container>
         <Row className="justify-content-around mt-5">
           <Col xs="10" sm="8" md="5" lg="4" xl="4" xxl="4" className="mb-3 ">
-            <Button className="CommonButton" onClick={() => navigate('')}>
+            <Button
+              className="CommonButton"
+              onClick={() => navigate('/profile')}
+            >
               Home
             </Button>
             <Button

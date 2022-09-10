@@ -15,7 +15,6 @@ const CovidTestRequest = () => {
   };
 
   const handleRequest = () => {
-    console.log('sad');
     let test_for = localStorage.getItem('test_for');
     if (localStorage.getItem('test_for') !== null) {
       let patient = localStorage.getItem('user_token');

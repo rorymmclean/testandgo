@@ -45,9 +45,7 @@ const Registration = () => {
                 style={{ width: '49%' }}
                 className="CommonButton"
                 variant="secondary"
-                onClick={() =>
-                  window.open('https://www.testandgo.com/', '_self')
-                }
+                onClick={() => navigate('/profile')}
               >
                 Home
               </Button>

@@ -1,4 +1,4 @@
-//this file to add or update on register or test request
+//this file to add or update from profile
 import React, { useContext, useState, useEffect } from 'react';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
@@ -13,10 +13,10 @@ import UserContext from '../../Context/UserContext';
 import Stepper from '../../components/common/Stepper';
 import Footer from '../../components/common/Footer';
 
-const AddDependent = () => {
+const AddNew = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [phoneNumber, setPhoneNumber] = useState(' ');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneError, setPhoneError] = useState(false);
   const [phoneControl, setPhoneControl] = useState('');
   const [validatedForm, setValidatedForm] = useState(false);
@@ -33,10 +33,7 @@ const AddDependent = () => {
     apt: '',
     zip: '',
   });
-  const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
-  axios.defaults.headers = {
-    'x-api-key': REACT_APP_API_KEY,
-  };
+
   useEffect(() => {
     let user_token = localStorage.getItem('user_token');
     axios
@@ -50,30 +47,6 @@ const AddDependent = () => {
               userData: res.data.body['0'],
             };
           });
-          //if update mode
-          let dependentName = localStorage.getItem('test_for');
-          if (dependentName !== null && dependentName !== 'New Dependent') {
-            let dependent = res.data.body['0'].dependents.filter(
-              (element) =>
-                element.first_name + ' ' + element.last_name === dependentName
-            );
-            let dependents = res.data.body['0'].dependents.filter(
-              (element) =>
-                element.first_name + ' ' + element.last_name !== dependentName
-            );
-            setuserDependents(dependents);
-            setFormData({
-              first_name: dependent[0].first_name,
-              last_name: dependent[0].last_name,
-              dob: new Date(dependent[0].dob),
-              Email: dependent[0].Email,
-              address: dependent[0].address,
-              second_address: dependent[0].second_address,
-              apt: dependent[0].apt,
-              zip: dependent[0].zip,
-            });
-            setPhoneNumber(dependent[0].phone_number);
-          }
 
           //////////////////
         } else if (
@@ -87,7 +60,10 @@ const AddDependent = () => {
         console.log(error);
       });
   }, []);
-
+  const { REACT_APP_API, REACT_APP_API_KEY } = process.env;
+  axios.defaults.headers = {
+    'x-api-key': REACT_APP_API_KEY,
+  };
   function subtractYears(numOfYears, date = new Date()) {
     date.setFullYear(date.getFullYear() - numOfYears);
     return date;
@@ -144,38 +120,13 @@ const AddDependent = () => {
           .then((res) => {
             console.log(res);
             if (res.data.statuscode == '200') {
-              localStorage.setItem(
-                'test_for',
-                formData.first_name + ' ' + formData.last_name
-              );
+              navigate('/dependents');
             } else if (
               res.data.statuscode == '400' ||
               res.data.statuscode == '401'
             ) {
               localStorage.setItem('r_step', 1);
               navigate('/');
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        /// create a case
-        axios
-          .post(`${REACT_APP_API}/case`, {
-            patient_guid: patient,
-            test: 'PCP',
-            test_for: formData.first_name + ' ' + formData.last_name,
-          })
-          .then((res) => {
-            if (res.data.statuscode == '200') {
-              console.log(res.data.body);
-              localStorage.setItem('case_id', res.data.body.case_guid);
-              localStorage.setItem('test_step', 2);
-              navigate('/covid-exposure');
-            } else if (
-              res.data.statuscode == '400' ||
-              res.data.statuscode == '401'
-            ) {
             }
           })
           .catch((error) => {
@@ -189,17 +140,6 @@ const AddDependent = () => {
     <Container>
       <Row className="justify-content-center mt-5">
         <Col xs="10" sm="8" md="6" lg="5" xl="4" xxl="4">
-          <Row
-            className="justify-content-center"
-            xs="10"
-            sm="8"
-            md="6"
-            lg="5"
-            xl="4"
-            xxl="4"
-          >
-            <Stepper step={6} width="70%" />
-          </Row>
           <h4
             style={{ width: '106%' }}
             className="patiaentInformation-h4 justify-content-left "
@@ -451,4 +391,4 @@ const AddDependent = () => {
   );
 };
 
-export default AddDependent;
+export default AddNew;

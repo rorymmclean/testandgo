@@ -74,6 +74,10 @@ const AddDependent = Loadable(
   lazy(() => import('../pages/Dependent/AddUpdateDependent'))
 );
 
+const UpdateDependent = Loadable(
+  lazy(() => import('../pages/Dependent/UpdateDependent'))
+);
+
 const DependentCovidTest = Loadable(
   lazy(() => import('../pages/Dependent/DependentCovidTest'))
 );
@@ -81,6 +85,7 @@ const DependentCovidTest = Loadable(
 const TestForDependent = Loadable(
   lazy(() => import('../pages/Test/testForDependent'))
 );
+const AddNew = Loadable(lazy(() => import('../pages/Dependent/AddNew')));
 
 const QRcode = Loadable(lazy(() => import('../pages/Test/QRCode')));
 const Profile = Loadable(lazy(() => import('../pages/Profile')));
@@ -96,7 +101,6 @@ export default function RouterComponent() {
           <Route path="/" element={<Registration />} />
           <Route path="/verification/step1" element={<RegisterStep1 />} />
           <Route path="/verification/step2" element={<Step1Verification />} />
-
           <Route
             path="/PatientInformationStep"
             element={<PatiaentInformationStep />}
@@ -129,12 +133,10 @@ export default function RouterComponent() {
           <Route path="/covid-symptoms" element={<CovidSymptoms />} />
           <Route path="/covid-test-request" element={<CovidTestRequest />} />
           <Route path="/QR-Code" element={<QRcode />} />
-
           <Route path="/profile" element={<Profile />} />
           <Route path="/history" element={<History />} />
           <Route path="/edit-profile" element={<PatiaentInformationStep />} />
           <Route path="/edit-insurance" element={<HealthInsurance />} />
-
           <Route
             path="/PatientDemographics"
             element={<PatientDemographics />}
@@ -147,10 +149,13 @@ export default function RouterComponent() {
             path="/dependent-covid-test"
             element={<DependentCovidTest />}
           />
+          <Route path="/New-dependent" element={<AddNew />} />
+          <Route path="/update-dependent" element={<UpdateDependent />} />
+
+          {/* //footer */}
           <Route path="/terms-of-use" element={<TermOfUse />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/conditions-of-sale" element={<ConditionsOfSale />} />
-
           <Route path="/login" element={<Login />} />
         </Routes>
       </UserContext.Provider>
