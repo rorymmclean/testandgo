@@ -92,6 +92,17 @@ const EditProfile = Loadable(
   lazy(() => import('../pages/Profile/EditProfile'))
 );
 
+const UpdateHealthInsurance = Loadable(
+  lazy(() => import('../pages/Insurance/UpdateHealthInsurance'))
+);
+
+const UpdateInsuranceInformation = Loadable(
+  lazy(() => import('../pages/Insurance/UpdateInsuranceInformation'))
+);
+
+const UpdateSecondaryInsuranceInformation = Loadable(
+  lazy(() => import('../pages/Insurance/UpdateSecondaryInsuranceInformation'))
+);
 const QRcode = Loadable(lazy(() => import('../pages/Test/QRCode')));
 const Profile = Loadable(lazy(() => import('../pages/Profile')));
 const History = Loadable(lazy(() => import('../pages/History')));
@@ -160,7 +171,21 @@ export default function RouterComponent() {
           />
           <Route path="/New-dependent" element={<AddNew />} />
           <Route path="/update-dependent" element={<UpdateDependent />} />
+          {/* Update Health Insurance */}
 
+          <Route
+            path="/update-health-insurance"
+            element={<UpdateHealthInsurance />}
+          />
+          <Route
+            path="/update-insurance-information"
+            element={<UpdateInsuranceInformation />}
+          />
+
+          <Route
+            path="/update-secondary-insurance-information"
+            element={<UpdateSecondaryInsuranceInformation />}
+          />
           {/* //footer */}
           <Route path="/terms-of-use" element={<TermOfUse />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
