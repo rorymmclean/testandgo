@@ -12,16 +12,18 @@ import axios from 'axios';
 import UserContext from '../../Context/UserContext';
 import Stepper from '../../components/common/Stepper';
 import Footer from '../../components/common/Footer';
+import Loading from '../../components/common/Loadable/Loading';
 
 const AddDependent = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [phoneNumber, setPhoneNumber] = useState(' ');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [phoneError, setPhoneError] = useState(false);
   const [phoneControl, setPhoneControl] = useState('');
   const [validatedForm, setValidatedForm] = useState(false);
   const { contextData, setContextData } = useContext(UserContext);
   const [userDependents, setuserDependents] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -74,6 +76,7 @@ const AddDependent = () => {
             });
             setPhoneNumber(dependent[0].phone_number);
           }
+          setIsLoading(false);
 
           //////////////////
         } else if (
@@ -185,7 +188,9 @@ const AddDependent = () => {
     }
   };
 
-  return (
+  return isLoading ? (
+    <Loading />
+  ) : (
     <Container>
       <Row className="justify-content-center mt-5">
         <Col xs="10" sm="8" md="6" lg="5" xl="4" xxl="4">

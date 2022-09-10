@@ -24,10 +24,8 @@ const Profile = () => {
       axios
         .get(`${REACT_APP_API}/patient?patient=${user_token}`)
         .then((res) => {
-          console.log(res);
           if (res.data.statuscode == '200') {
             setUserData(res.data.body['0']);
-            console.log(res.data);
             setContextData((prevState) => {
               return {
                 ...prevState,
@@ -70,7 +68,7 @@ const Profile = () => {
             <Button
               className="CommonButton mt-4"
               variant="secondary"
-              /* onClick={() => navigate('/edit-profile')} */
+              onClick={() => navigate('/EditProfile')}
             >
               Edit Profile
             </Button>
@@ -91,10 +89,19 @@ const Profile = () => {
             <Button
               className="CommonButton mt-4"
               variant="secondary"
-              /*               onClick={() => navigate('/test-dependent')}
-               */
+              onClick={() => navigate('/test-dependent')}
             >
-              New Request
+              Register for Test
+            </Button>
+            <Button
+              className="CommonButton mt-4"
+              variant="secondary"
+              onClick={() => {
+                localStorage.removeItem('user_token');
+                navigate('/');
+              }}
+            >
+              Sign out
             </Button>
           </Col>
           <Col xs="10" sm="8" md="7" lg="5" xl="5" xxl="5">
@@ -108,8 +115,21 @@ const Profile = () => {
                 health_insurance: userData.health_insurance,
               }}
             />
-            {/*             <h4>Dependent</h4>
-             */}
+            <h4>Dependent</h4>
+            {console.log(userData.dependents)}
+            {userData.dependents.map((element, index) => {
+              return (
+                <Card
+                  key={index}
+                  data={{
+                    Name: element.first_name,
+                    Birthday: element.last_name,
+                    Phone: element.phone_number,
+                    Email: element.Email,
+                  }}
+                />
+              );
+            })}
             {/*             <Card
               data={{
                 Name: '-',

@@ -83,9 +83,19 @@ const History = () => {
             <Button
               className="CommonButton mt-4"
               variant="secondary"
-              onClick={() => navigate('')}
+              onClick={() => navigate('/test-dependent')}
             >
-              New Request
+              Register for Test
+            </Button>
+            <Button
+              className="CommonButton mt-4"
+              variant="secondary"
+              onClick={() => {
+                localStorage.removeItem('user_token');
+                navigate('/');
+              }}
+            >
+              Sign out
             </Button>
           </Col>
           <Col xs="10" sm="8" md="7" lg="5" xl="5" xxl="4">

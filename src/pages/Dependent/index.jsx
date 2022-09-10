@@ -74,7 +74,7 @@ const Dependent = () => {
           <Button
             className="CommonButton mt-4"
             variant="secondary"
-            /* onClick={() => navigate('/edit-profile')} */
+            onClick={() => navigate('/EditProfile')}
           >
             Edit Profile
           </Button>
@@ -95,9 +95,19 @@ const Dependent = () => {
           <Button
             className="CommonButton mt-4"
             variant="secondary"
-            /* onClick={() => navigate('/test-dependent')} */
+            onClick={() => navigate('/test-dependent')}
           >
-            New Request
+            Register for Test
+          </Button>
+          <Button
+            className="CommonButton mt-4"
+            variant="secondary"
+            onClick={() => {
+              localStorage.removeItem('user_token');
+              navigate('/');
+            }}
+          >
+            Sign out
           </Button>
         </Col>
         <Col xs="10" sm="10" md="7" lg="8" xl="8" xxl="8">

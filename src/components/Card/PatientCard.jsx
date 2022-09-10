@@ -3,7 +3,8 @@ import { Col, Container, Image, ListGroup, Row } from 'react-bootstrap';
 import cardImage from './../../assets/images/cardImage.png';
 import './Card.css';
 const Card = ({ ...props }) => {
-  const { Name, Birthday, Phone, Email, health_insurance } = props.data;
+  const { Name, Birthday, Phone, Email } = props.data;
+  const { health_insurance } = props.data || '';
   const {
     group_number,
     have_secondary_insurance_want_to_include,
@@ -44,11 +45,14 @@ const Card = ({ ...props }) => {
               <b>Email:</b>
               <span>{Email}</span>
             </ListGroup.Item>
-            <ListGroup.Item className="cardListItem">
-              <b>Health Insurance:</b>
-              <span>{health_insurance}</span>
-            </ListGroup.Item>
-
+            {props.data.InsuranceInfo != undefined ? (
+              <>
+                <ListGroup.Item className="cardListItem">
+                  <b>Health Insurance:</b>
+                  <span>{health_insurance}</span>
+                </ListGroup.Item>
+              </>
+            ) : null}
             {props.data.InsuranceInfo != undefined ? (
               <>
                 <ListGroup.Item className="cardListItem">
