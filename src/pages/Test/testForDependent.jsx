@@ -145,7 +145,9 @@ const testForDependent = () => {
                 </Button>
               </Form>
             </Row>
-            <Footer />
+            <Row className="mt-5">
+              <Footer />
+            </Row>
           </Col>
         </Row>
       </Container>

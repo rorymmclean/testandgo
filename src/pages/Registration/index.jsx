@@ -34,16 +34,14 @@ const Registration = () => {
             </Button>
             <Row className="d-flex justify-content-between p-0">
               <Button
-                style={{ width: '48%' }}
-                className="CommonButton  "
+                className="CommonButton  wdith49"
                 variant="secondary"
                 onClick={() => navigate('/login')}
               >
                 Sign in
               </Button>
               <Button
-                style={{ width: '49%' }}
-                className="CommonButton"
+                className="CommonButton wdith49"
                 variant="secondary"
                 onClick={() => navigate('/profile')}
               >
@@ -69,7 +67,7 @@ const Registration = () => {
             >
               Prueba en un Quiosco - Qué Esperar (audio en Español)
             </a>
-            <div style={{ position: 'absolute', bottom: '0' }}>
+            <div className="mt-5">
               <Footer />
             </div>
           </Row>

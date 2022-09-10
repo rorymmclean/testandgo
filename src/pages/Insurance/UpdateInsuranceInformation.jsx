@@ -36,12 +36,12 @@ const UpdateInsuranceInformation = () => {
         .get(`${REACT_APP_API}/patient?patient=${user_token}`)
         .then((res) => {
           if (res.data.statuscode == '200') {
-            console.log(res.data.body[0].health_insurance);
-            if (res.data.body[0].health_insurance === 'Yes') {
+            console.log(res.data.body[0]);
+            /*             if (res.data.body[0].health_insurance === 'Yes') {
               setFormData({
                 primary_insurance_carrier:
                   res.data.body[0].insurance_nformation
-                    .primary_insurance_carrier,
+                    .primary_insurance_carrier || '',
                 subscriber_member_id:
                   res.data.body[0].insurance_nformation.subscriber_member_id,
                 group_number:
@@ -53,9 +53,8 @@ const UpdateInsuranceInformation = () => {
                   res.data.body[0].insurance_nformation
                     .have_secondary_insurance_want_to_include,
               });
-
-              setIsLoading(false);
-            }
+            } */
+            setIsLoading(false);
           } else if (
             res.data.statuscode == '400' ||
             res.data.statuscode == '401'
@@ -293,7 +292,9 @@ const UpdateInsuranceInformation = () => {
                 </Button>
               </Form>
             </Row>
-            <Footer />
+            <Row className="mt-5">
+              <Footer />
+            </Row>
           </Col>
         </Row>
       </Container>

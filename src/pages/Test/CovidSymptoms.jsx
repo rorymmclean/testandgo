@@ -408,15 +408,7 @@ const CovidSyptoms = () => {
                 onChange={() => setAccept(!accepet)}
               />
               {acceptError && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  This Field is Required
-                </p>
+                <p className="errorNotify">This Field is Required</p>
               )}
               <Button
                 className="CommonButton mt-4"
@@ -428,7 +420,9 @@ const CovidSyptoms = () => {
               </Button>
             </Form>
           </Row>
-          <Footer />
+          <Row className="mt-5">
+            <Footer />
+          </Row>
         </Col>
       </Row>
     </Container>

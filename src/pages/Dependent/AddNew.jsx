@@ -241,17 +241,7 @@ const AddNew = () => {
                 }}
                 defaultCountry="US"
               />
-              {phoneError && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  {phoneControl}
-                </p>
-              )}
+              {phoneError && <p className="errorNotify">{phoneControl}</p>}
               <Form.Label className=" mt-3 label">Email</Form.Label>
               <Form.Control
                 required
@@ -384,7 +374,9 @@ const AddNew = () => {
               </Button>
             </Form>
           </Row>
-          <Footer />
+          <Row className="mt-5">
+            <Footer />
+          </Row>
         </Col>
       </Row>
     </Container>

@@ -171,15 +171,7 @@ const PatientDemographics = () => {
             <Form onSubmit={handleSubmit}>
               <Form.Label className="label mt-2">Patient Race</Form.Label>
               {formDataError.patient_race && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  Please select an option
-                </p>
+                <p className="errorNotify">Please select an option</p>
               )}
               <select
                 className="dropDwon selectbox"
@@ -217,15 +209,7 @@ const PatientDemographics = () => {
 
               <Form.Label className="label mt-3">Patient Eithnicity</Form.Label>
               {formDataError.patient_ethnicity && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  Please select an option
-                </p>
+                <p className="errorNotify">Please select an option</p>
               )}
               <select
                 className="dropDwon selectbox"
@@ -253,15 +237,7 @@ const PatientDemographics = () => {
 
               <Form.Label className="label mt-3">Patient Sex</Form.Label>
               {formDataError.patient_sex && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  Please select an option
-                </p>
+                <p className="errorNotify">Please select an option</p>
               )}
               <select
                 className="dropDwon selectbox"
@@ -295,7 +271,9 @@ const PatientDemographics = () => {
             </Form>
           </Row>
         </Col>
-        <Footer />
+        <Row className="mt-5">
+          <Footer />
+        </Row>
       </Row>
     </Container>
   );

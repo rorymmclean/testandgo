@@ -152,17 +152,7 @@ const Step1 = () => {
                 }}
                 defaultCountry="US"
               />
-              {phoneError && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  {phoneControl}
-                </p>
-              )}
+              {phoneError && <p className="errorNotify">{phoneControl}</p>}
               <Button
                 type="submit"
                 className="CommonButton"
@@ -190,17 +180,7 @@ const Step1 = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {emailError && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  {emailControl}
-                </p>
-              )}
+              {emailError && <p className="errorNotify">{emailControl}</p>}
               <Button
                 type="submit"
                 className="CommonButton mb-3"
@@ -211,7 +191,9 @@ const Step1 = () => {
               </Button>
             </Form>
           </Row>
-          <Footer />
+          <Row className="mt-5">
+            <Footer />
+          </Row>
         </Col>
       </Row>
     </Container>

@@ -68,14 +68,16 @@ const Step1Verification = () => {
               >
                 Next
               </Button>
-              <Button className=" redSend" variant="link">
+              <Button className="redSend" variant="link">
                 Re-send Code
               </Button>
             </Form>
           </Row>
         </Col>
-        <Row style={{ position: 'absolute', bottom: '0' }}>
-          <Footer />
+        <Row className="mt-5">
+          <Row className="mt-5">
+            <Footer />
+          </Row>
         </Row>
       </Row>
     </Container>

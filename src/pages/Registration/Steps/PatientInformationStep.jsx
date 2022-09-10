@@ -24,6 +24,8 @@ const PatiaentInformationStep1 = () => {
   const { contextData, setContextData } = useContext(UserContext);
   const [validpassword, setValidpassword] = useState(false);
 
+  const [identityType, setIdentityType] = useState('');
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -42,6 +44,39 @@ const PatiaentInformationStep1 = () => {
   axios.defaults.headers = {
     'x-api-key': REACT_APP_API_KEY,
   };
+  useEffect(() => {
+    let user_token = localStorage.getItem('Registered_user');
+    axios
+      .get(`${REACT_APP_API}/patient?patient=${user_token}`)
+      .then((res) => {
+        if (res.data.statuscode == '200') {
+          console.log(res.data.body[0]);
+          setIdentityType(res.data.body[0].identityType);
+          if (res.data.body[0].identityType === 'Phone') {
+            let phoneNum =
+              res.data.body[0].phone[0] == '+'
+                ? res.data.body[0].phone
+                : '+' + res.data.body[0].phone;
+            setPhoneNumber(phoneNum);
+          } else {
+            setFormData((prevState) => {
+              return {
+                ...prevState,
+                Email: res.data.body[0].email,
+              };
+            });
+          }
+        } else if (
+          res.data.statuscode == '400' ||
+          res.data.statuscode == '401'
+        ) {
+          navigate('/');
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   useEffect(() => {
     //check were is the real step that user should be in!
@@ -281,6 +316,7 @@ const PatiaentInformationStep1 = () => {
               </Row>
               <Form.Label className=" mt-3 label">Phone</Form.Label>
               <PhoneInput
+                disabled={identityType == 'Phone'}
                 className={`PhoneInput ${
                   phoneError
                     ? `PhoneInputInValid`
@@ -304,19 +340,10 @@ const PatiaentInformationStep1 = () => {
                 }}
                 defaultCountry="US"
               />
-              {phoneError && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  {phoneControl}
-                </p>
-              )}
+              {phoneError && <p className="errorNotify">{phoneControl}</p>}
               <Form.Label className=" mt-3 label">Email</Form.Label>
               <Form.Control
+                disabled={identityType == 'Email'}
                 required
                 className="hieght-50px"
                 type="email"
@@ -355,13 +382,7 @@ const PatiaentInformationStep1 = () => {
                 Please provide a valid Password.
               </Form.Control.Feedback>
               {validpassword && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
+                <p className="errorNotify">
                   Password must be 12 characters long (the longer, the better).
                   Have a combination of upper and lowercase letters, numbers,
                   punctuation, and special symbols.
@@ -387,15 +408,7 @@ const PatiaentInformationStep1 = () => {
                 Please Confirm Password.
               </Form.Control.Feedback>
               {passwordsNotEqaul && (
-                <p
-                  style={{
-                    marginTop: ' 0.25rem',
-                    fontSize: '.875em',
-                    color: '#dc3545',
-                  }}
-                >
-                  Passwords do not match
-                </p>
+                <p className="errorNotify">Passwords do not match</p>
               )}
 
               <Form.Check
@@ -509,7 +522,9 @@ const PatiaentInformationStep1 = () => {
               </Button>
             </Form>
           </Row>
-          <Footer />
+          <Row className="mt-5">
+            <Footer />
+          </Row>
         </Col>
       </Row>
     </Container>

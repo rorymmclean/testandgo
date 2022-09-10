@@ -92,7 +92,9 @@ const QRcode = () => {
               Go to Profile
             </Button>
           </Row>
-          <Footer />
+          <Row className="mt-5">
+            <Footer />
+          </Row>
         </Col>
       </Row>
     </Container>
