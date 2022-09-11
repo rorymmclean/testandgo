@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-node@v2
       - name: Install dependencies
         run: npm install
-      - name: Switch user
-        run: sudo chmod +x node_modules/.bin/react-scripts
+#      - name: Switch user
+#        run: sudo chmod +x node_modules/.bin/react-scripts
       - name: build dependencies  
         run: npm run predeploy
       - name: Set AWS credentials
