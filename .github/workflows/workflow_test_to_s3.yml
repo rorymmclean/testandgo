@@ -8,6 +8,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      process.env.CI : false
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
