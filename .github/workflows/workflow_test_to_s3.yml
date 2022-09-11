@@ -13,8 +13,9 @@ jobs:
       - uses: actions/setup-node@v2
       - name: Install dependencies
         run: npm install
-      - name: Build website
+      - name: Switch user
         run: sudo su
+      - name: build dependencies  
         run: npm run build
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
